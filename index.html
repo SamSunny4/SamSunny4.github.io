@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sam Sunny — Applied AI, Computer Vision & Full-Stack Systems</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Portfolio of Sam Sunny — Software Engineer specializing in Applied AI, Computer Vision, and Full-Stack Systems. Creator of KeyBase and 2nd prize winner at National AI Samasya Hackathon.">
+  <meta name="author" content="Sam Sunny">
+  <meta property="og:title" content="Sam Sunny — Applied AI & Full-Stack Systems">
+  <meta property="og:description" content="Portfolio of Sam Sunny — Software Engineer specializing in Applied AI, Computer Vision, and Full-Stack Systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/me.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@700;800&family=MedievalSharp&family=Orbitron:wght@800;900&family=Oxanium:wght@700;800&family=Pixelify+Sans:wght@700&family=Press+Start+2P&family=Syne:wght@800&display=swap" rel="stylesheet">
+
+  
+  <!-- Design System Stylesheet -->
+  <link rel="stylesheet" href="style.css?v=47">
+  <link rel="icon" type="image/png" href="assets/me.png">
+</head>
+<body>
+
+  <!-- Floating Sticky Brand Logo (Appears when scrolled away from Hero) -->
+  <header id="sticky-header-brand" class="sticky-brand-container" aria-label="Sam Sunny Brand">
+    <a href="#hero" class="sticky-brand-link" title="Sam Sunny — Return to Top">
+      <img src="assets/Samlogo.png" alt="Sam Sunny Signature Logo" class="sticky-brand-img">
+    </a>
+  </header>
+
+  <!-- Ambient Noise Layer -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+  
+  <!-- 3D WebGL Canvas Layer (Background Scene) -->
+  <div id="webgl-canvas-container" aria-hidden="true"></div>
+
+  <!-- Primary Interactive Content Wrapper -->
+  <div class="content-wrapper">
+    
+    <!-- Main Content Flow -->
+    <main>
+      
+      <!-- SPACE STAGE: HERO TO TECH STACK 3D WARP ZOOM SEQUENCE -->
+      <div id="space-stage-track" class="space-stage-track">
+        <div id="space-stage-sticky" class="space-stage-sticky">
+          
+          <!-- Shared 3D Cosmic Canvas (Warp Stardust & 3D Orbital Rings) -->
+          <canvas id="solar-canvas" class="solar-canvas space-warp-canvas"></canvas>
+
+          <!-- HERO VIEWPORT LAYER (Zooms forward towards camera on scroll) -->
+          <div id="hero-space-layer" class="hero-space-layer">
+            <!-- Topographic Background ONLY for Landing Page -->
+            <div id="hero-topo-container" class="hero-topo-container" aria-hidden="true"></div>
+
+            <section id="hero" class="hero-section">
+              <div class="container hero-container">
+                <div class="hero-grid">
+                  
+                  <!-- Left: Monumental Editorial Identity & Directives -->
+                  <div class="hero-content">
+                    <div class="hero-title-group">
+                      <h1 class="hero-monumental-title" aria-label="I AM SAM SUNNY">
+                        <span class="hero-line-mask">
+                          <span class="hero-line-1">
+                            <span class="reveal-word word-i">I</span>
+                            <span class="reveal-word word-am">AM</span>
+                          </span>
+                        </span>
+                        <div id="shuffle-hero-name" class="ascii-hero-container" title="Interactive ASCII Typography — Hover or Click to Burst">
+                          <!-- ASCII Block Burst Engine automatically populates SAM and SUNNY -->
+                        </div>
+                      </h1>
+
+                      <p class="font-sans text-editorial-muted hero-desc-reveal" style="font-size: var(--font-size-md); max-width: 640px; line-height: 1.6; margin-top: var(--space-md); margin-bottom: var(--space-lg);">
+                        Software Engineer specializing in Computer Vision, Applied AI pipelines, and commercial full-stack applications. Proven track record deploying production retail software and national hackathon achievements.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Right: Cybernetic Portrait Showcase Stage -->
+                  <div class="hero-portrait-stage hero-portrait-reveal">
+                    <div class="hero-portrait-card" id="hero-portrait-card">
+                      <!-- Dynamic Radial Singularity Glow -->
+                      <div class="portrait-ambient-glow" aria-hidden="true"></div>
+
+                      <!-- Holographic Tactical Corner Brackets -->
+                      <div class="portrait-hud-corner hud-corner-tl" aria-hidden="true"></div>
+                      <div class="portrait-hud-corner hud-corner-tr" aria-hidden="true"></div>
+                      <div class="portrait-hud-corner hud-corner-br" aria-hidden="true"></div>
+                      <div class="portrait-hud-corner hud-corner-bl" aria-hidden="true"></div>
+
+                      <!-- Portrait Cutout Viewport with Seamless Gradient Mask -->
+                      <div class="portrait-img-viewport">
+                        <img 
+                          src="assets/me.png?v=28" 
+                          alt="Sam Sunny — Applied AI, Computer Vision &amp; Full-Stack Systems Engineer" 
+                          class="hero-portrait-img" 
+                          id="hero-portrait-img"
+                          loading="eager"
+                        />
+                        <!-- Precision HUD Scanline Effect -->
+                        <div class="portrait-scanline-fx" aria-hidden="true"></div>
+                      </div>
+
+                      <!-- Telemetry Coordinates Badge -->
+                      <div class="portrait-coord-badge font-mono">
+                        <span class="text-lime">LOC:</span> 9.9312° N, 76.2673° E
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- TECH STACK UNIVERSE LAYER (Zooms in from deep space into foreground) -->
+          <div id="tech-space-layer" class="tech-space-layer">
+            <section id="tech-stack" class="tech-universe-section">
+              <!-- Central 3D Solar System Viewport Stage -->
+              <div class="solar-stage-wrapper" id="solar-stage">
+                <!-- Central Gravitational Core / Glowing Singularity -->
+                <div class="solar-singularity" aria-hidden="true"></div>
+
+                <!-- Central 3D Monumental Text (At Depth Z = 0, z-index: 50) -->
+                <div class="solar-center-anchor" id="solar-center-anchor">
+                  <div class="solar-center-3d-text" id="solar-center-text">
+                    <h2 class="solar-text-monumental" data-text="TECH STACK">TECH STACK</h2>
+                  </div>
+                </div>
+
+                <!-- 3D Orbiting Logos Container (Z-sorted: < 0 behind text, >= 0 over text) -->
+                <div class="solar-orbits-container" id="solar-orbits-container">
+                  <!-- 28 nodes dynamically generated and updated with 3D projection math -->
+                </div>
+
+                <!-- Quick Jump Navigation HUD -->
+                <div class="stage-nav-hud">
+                  <button id="engage-wormhole-btn" class="stage-nav-btn font-mono" title="Warp to projects">WARP TO PROJECTS ↯</button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- PROJECTS UNIVERSE LAYER (Emerges on other side of the Wormhole) -->
+          <div id="projects-space-layer" class="projects-space-layer">
+            <section id="projects" class="projects-universe-section">
+              <!-- Central 3D Projects Solar Stage -->
+              <div class="projects-stage-wrapper" id="projects-stage">
+                <!-- 3D Orbital Geometry Canvas for Projects -->
+                <canvas id="projects-canvas" class="projects-canvas"></canvas>
+
+                <!-- Central Star / Cosmic Singularity Core -->
+                <div class="projects-singularity" aria-hidden="true"></div>
+
+                <!-- Central 3D Monumental Title (Depth Z = 0) -->
+                <div class="projects-center-anchor" id="projects-center-anchor">
+                  <div class="projects-center-3d-text" id="projects-center-text">
+                    <span class="projects-text-pre font-mono">// VERIFIED ARCHITECTURE & SYSTEMS</span>
+                    <h2 class="projects-text-monumental" data-text="FLAGSHIP PROJECTS">FLAGSHIP PROJECTS</h2>
+                    <span class="projects-text-sub font-mono">06 DEPLOYED PLATFORMS · CELESTIAL STELLAR FLEET</span>
+                  </div>
+                </div>
+
+                <!-- 3D Orbiting Project Planets Container -->
+                <div class="projects-orbits-container" id="projects-orbits-container">
+                  <!-- 6 Flagship Project Planetary Worlds dynamically rendered in 3D Keplerian orbits -->
+                </div>
+
+                <!-- Quick Jump Navigation HUD -->
+                <div class="stage-nav-hud">
+                  <button id="return-tech-btn" class="stage-nav-btn font-mono" title="Return to tech matrix">⤾ RETURN TO TECH MATRIX</button>
+                  <button id="engage-credentials-btn" class="stage-nav-btn font-mono text-lime" title="Launch space journey to credentials matrix">SPACE JOURNEY ↯ TO CREDENTIALS</button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- CREDENTIALS UNIVERSE LAYER (Infinity Stones Celestial Destination) -->
+          <div id="credentials-space-layer" class="credentials-space-layer">
+            <section id="credentials" class="credentials-universe-section">
+              <!-- Dynamically populated by credentials-stones.js with 7 infinity stones -->
+            </section>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Floating Near-Pointer Telemetry Tooltip -->
+      <div id="solar-cursor-tooltip" class="solar-cursor-tooltip" aria-hidden="true">
+        <div class="tooltip-header-simple">
+          <div class="tooltip-icon-wrap" id="tooltip-icon-wrap">
+            <img src="" alt="" id="tooltip-icon" class="tooltip-icon-img" />
+          </div>
+          <h4 class="tooltip-name font-display" id="tooltip-title">Tech</h4>
+        </div>
+        
+        <div class="tooltip-projects-section" id="tooltip-projects-section">
+          <span class="tooltip-projects-label font-mono" id="tooltip-projects-label">Projects</span>
+          <div class="tooltip-projects-chips" id="tooltip-projects-list">
+            <!-- [ ProjectName <gitsymbol> ] -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Project Deep-Dive Modal -->
+      <div id="project-detail-modal" class="project-modal" aria-hidden="true">
+        <div class="project-modal-backdrop" id="project-modal-backdrop"></div>
+        <div class="project-modal-card hud-frame">
+          <div class="project-modal-header">
+            <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <div class="project-modal-icon-wrap" id="modal-icon-wrap">
+                <img src="" alt="" id="modal-icon" class="project-modal-icon" />
+              </div>
+              <div>
+                <span class="font-mono text-lime" id="modal-status" style="font-size: 0.65rem; letter-spacing: 0.08em;">// STATUS</span>
+                <h3 class="font-display" id="modal-title" style="font-size: 1.45rem; margin-top: 0.15rem; color: #FFFFFF;">PROJECT NAME</h3>
+              </div>
+            </div>
+            <button class="project-modal-close font-mono" id="modal-close-btn" aria-label="Close Modal">✕ [ESC]</button>
+          </div>
+          <div class="project-modal-body">
+            <p class="font-sans text-editorial-muted" id="modal-desc" style="line-height: 1.6; margin-bottom: 1.2rem; font-size: 0.95rem;"></p>
+            <div style="margin-bottom: 1.2rem;">
+              <span class="font-mono text-muted" style="font-size: 0.72rem; letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem;">// TECHNOLOGY ARCHITECTURE</span>
+              <div id="modal-tech-chips" class="modal-chips-wrap"></div>
+            </div>
+            <div style="margin-bottom: 1.4rem;">
+              <span class="font-mono text-muted" style="font-size: 0.72rem; letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem;">// SYSTEM SPECIFICATIONS & METRICS</span>
+              <div id="modal-stats-list" class="modal-stats-grid"></div>
+            </div>
+          </div>
+          <div class="project-modal-footer">
+            <a href="#" target="_blank" id="modal-repo-link" class="btn-primary" style="font-size: 0.75rem;">VIEW REPOSITORY ON GITHUB ↗</a>
+            <button class="btn-secondary" id="modal-dismiss-btn" style="font-size: 0.75rem;">DISMISS TELEMETRY</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT & TRANSMISSION PROTOCOL -->
+      <section id="contact" class="contact-section" aria-label="Contact and Transmission Protocol">
+        
+        <!-- Subtle Ambient Background Glow -->
+        <div class="contact-bg-glow" aria-hidden="true"></div>
+
+        <div class="container contact-container">
+          
+          <!-- Section Header -->
+          <div class="contact-header text-center">
+            <div class="contact-badge font-mono">
+              <span class="contact-badge-dot"></span>
+              <span>// TRANSMISSION MATRIX · INITIATE CONTACT</span>
+            </div>
+            <h2 class="contact-title font-display">LET'S BUILD TOGETHER</h2>
+            <p class="contact-subtitle font-sans text-editorial-muted">
+              Seeking high-impact collaborations in Applied AI, Autonomous Agent Systems, and Scalable Full-Stack Engineering. Open for inquiries, advisory, and engineering roles.
+            </p>
+          </div>
+
+          <!-- Contact Cards Grid -->
+          <div class="contact-grid">
+            
+            <!-- Email Card (Primary Feature Card) -->
+            <div class="contact-card contact-card-featured" id="card-email">
+              <div class="contact-card-top">
+                <div class="contact-card-icon" style="color: var(--color-lime);">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <span class="contact-card-tag font-mono">// DIRECT TRANSMISSION</span>
+              </div>
+              <div class="contact-card-body">
+                <h3 class="contact-card-title font-display">Direct Dispatch</h3>
+                <p class="contact-card-desc font-sans">Primary inbox for project proposals, technical architecture discussions, and engineering opportunities.</p>
+                <div class="contact-card-value font-mono">samsunnymodern12@gmail.com</div>
+              </div>
+              <div class="contact-card-actions font-mono">
+                <a href="mailto:samsunnymodern12@gmail.com" class="btn-contact-action primary" id="contact-email-link" title="Open email client">
+                  <span>SEND EMAIL ↗</span>
+                </a>
+                <button type="button" class="btn-contact-action secondary copy-btn" data-copy="samsunnymodern12@gmail.com" id="contact-copy-email-btn" title="Copy email address to clipboard">
+                  <span class="copy-label">COPY ADDRESS</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- GitHub Card -->
+            <div class="contact-card" id="card-github">
+              <div class="contact-card-top">
+                <div class="contact-card-icon" style="color: #00FF88;">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+                    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                  </svg>
+                </div>
+                <span class="contact-card-tag font-mono">// SOURCE CODE</span>
+              </div>
+              <div class="contact-card-body">
+                <h3 class="contact-card-title font-display">GitHub</h3>
+                <p class="contact-card-desc font-sans">Open-source repositories, agent architectures, and autonomous AI systems.</p>
+                <div class="contact-card-value font-mono">github.com/SamSunny4</div>
+              </div>
+              <div class="contact-card-actions font-mono">
+                <a href="https://github.com/SamSunny4" target="_blank" rel="noopener noreferrer" class="btn-contact-action primary" id="contact-github-link">
+                  <span>VIEW REPOSITORIES ↗</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- LinkedIn Card -->
+            <div class="contact-card" id="card-linkedin">
+              <div class="contact-card-top">
+                <div class="contact-card-icon" style="color: #38BDF8;">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                  </svg>
+                </div>
+                <span class="contact-card-tag font-mono">// NETWORK NEXUS</span>
+              </div>
+              <div class="contact-card-body">
+                <h3 class="contact-card-title font-display">LinkedIn</h3>
+                <p class="contact-card-desc font-sans">Professional career network, industry connections, and engineering updates.</p>
+                <div class="contact-card-value font-mono">in/sam-sunny-36b4772bb</div>
+              </div>
+              <div class="contact-card-actions font-mono">
+                <a href="https://www.linkedin.com/in/sam-sunny-36b4772bb/" target="_blank" rel="noopener noreferrer" class="btn-contact-action primary" id="contact-linkedin-link">
+                  <span>CONNECT ON LINKEDIN ↗</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Resume / CV Card -->
+            <div class="contact-card" id="card-resume">
+              <div class="contact-card-top">
+                <div class="contact-card-icon" style="color: #A7F3D0;">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                  </svg>
+                </div>
+                <span class="contact-card-tag font-mono">// VERIFIED CREDENTIAL</span>
+              </div>
+              <div class="contact-card-body">
+                <h3 class="contact-card-title font-display">Curriculum Vitae</h3>
+                <p class="contact-card-desc font-sans">Comprehensive overview of systems architecture, hackathon awards, and production skills.</p>
+                <div class="contact-card-value font-mono">Sam_Sunny_Resume.pdf</div>
+              </div>
+              <div class="contact-card-actions font-mono">
+                <a href="assets/Sam_Sunny_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-contact-action primary" id="contact-resume-link">
+                  <span>VIEW PDF ↗</span>
+                </a>
+                <a href="assets/Sam_Sunny_Resume.pdf" download="Sam_Sunny_Resume.pdf" class="btn-contact-action secondary" id="contact-download-resume-btn" title="Download resume PDF">
+                  <span>DOWNLOAD</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Voice / Telemetry Card -->
+            <div class="contact-card" id="card-call">
+              <div class="contact-card-top">
+                <div class="contact-card-icon" style="color: #10B981;">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <span class="contact-card-tag font-mono">// VOICE LINK</span>
+              </div>
+              <div class="contact-card-body">
+                <h3 class="contact-card-title font-display">Voice Telemetry</h3>
+                <p class="contact-card-desc font-sans">Direct line for consultations, strategy conversations, and high-priority contact.</p>
+                <div class="contact-card-value font-mono">+91 8848419770</div>
+              </div>
+              <div class="contact-card-actions font-mono">
+                <a href="tel:+918848419770" class="btn-contact-action primary" id="contact-call-link">
+                  <span>CALL DIRECT ↗</span>
+                </a>
+                <button type="button" class="btn-contact-action secondary copy-btn" data-copy="+918848419770" id="contact-copy-phone-btn" title="Copy phone number to clipboard">
+                  <span class="copy-label">COPY NUMBER</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Telemetry Status Bar -->
+          <div class="contact-telemetry font-mono">
+            <div class="telemetry-item">
+              <span class="telemetry-label">// LOCATION:</span>
+              <span class="telemetry-val">KERALA, INDIA [UTC+5:30]</span>
+            </div>
+            <div class="telemetry-separator">/</div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">// STATUS:</span>
+              <span class="telemetry-val text-lime">AVAILABLE FOR HIRE / ADVISORY</span>
+            </div>
+            <div class="telemetry-separator">/</div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">// RESPONSE:</span>
+              <span class="telemetry-val">&lt; 12 HOURS</span>
+            </div>
+          </div>
+
+          <!-- Bottom Footer Navigation & Copyright -->
+          <div class="contact-footer">
+            <button id="contact-return-top-btn" class="stage-nav-btn font-mono" title="Return to Launchpad">
+              ⤾ RETURN TO LAUNCHPAD
+            </button>
+            <div class="contact-copyright font-mono text-muted">
+              <span>DESIGNED & ARCHITECTED BY SAM SUNNY</span>
+              <span class="copyright-dot">·</span>
+              <span>© 2026 ALL RIGHTS RESERVED</span>
+            </div>
+          </div>
+
+          <!-- Toast Notification for Clipboard Copy -->
+          <div id="contact-toast" class="contact-toast font-mono" role="status" aria-live="polite">
+            <span class="toast-dot"></span>
+            <span id="contact-toast-text">COPIED TO CLIPBOARD</span>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Lenis Momentum Smooth Scroll Library -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
+  <!-- Main ES6 Module Entry -->
+  <script type="module" src="js/main.js?v=47"></script>
+</body>
+</html>

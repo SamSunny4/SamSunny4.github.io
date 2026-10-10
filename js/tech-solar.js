@@ -1,0 +1,1680 @@
+/**
+ * TECH STACK 3D SOLAR SYSTEM ORBITAL & SPACE WARP ZOOM ENGINE
+ * Author: Sam Sunny Portfolio
+ * Description: 
+ *   - Scroll-driven 3D cosmic zoom transition from Hero into the Tech Stack universe.
+ *   - As user scrolls from Hero, camera flies through space (hyperspace star streaks, Hero zooms past camera),
+ *     and the 3D Solar System Tech Stack blooms in from deep space.
+ *   - 28 planetary tech nodes revolve in chaotic 3D orbits BOTH BEHIND AND OVER the monumental 3D text.
+ *   - Hovering any node displays rich details in a floating holographic HUD tooltip right near the pointer!
+ */
+
+// 28 Verified Tech Stack Nodes with authentic project context
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, (m) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[m]));
+}
+
+// 28 Verified Tech Stack Nodes with authentic project context & direct Git repositories
+export const TECH_NODES = [
+  // --- RING 0: AI & COMPUTER VISION CORE (Inner Fast Track) ---
+  {
+    id: 'python',
+    name: 'Python',
+    icon: 'assets/tech-icons/python.svg',
+    color: '#387EB8',
+    ringIndex: 0,
+    orbitPhase: 0,
+    speedFactor: 1.15,
+    projects: [
+      { name: 'Leadis', github: 'https://github.com/SamSunny4/Leadis' },
+      { name: 'MovSense', github: 'https://github.com/SamSunny4/MovSense' },
+    ],
+  },
+  {
+    id: 'mediapipe',
+    name: 'MediaPipe',
+    icon: 'assets/tech-icons/mediapipe.svg',
+    color: '#00F0FF',
+    ringIndex: 0,
+    orbitPhase: Math.PI * 0.5,
+    speedFactor: 1.05,
+    projects: [
+      { name: 'Leadis', github: 'https://github.com/SamSunny4/Leadis' },
+      { name: 'MovSense', github: 'https://github.com/SamSunny4/MovSense' },
+    ],
+  },
+  {
+    id: 'fastapi',
+    name: 'FastAPI',
+    icon: 'assets/tech-icons/fastapi.svg',
+    color: '#059669',
+    ringIndex: 0,
+    orbitPhase: Math.PI,
+    speedFactor: 1.1,
+    projects: [
+      { name: 'MovSense', github: 'https://github.com/SamSunny4/MovSense' },
+    ],
+  },
+  {
+    id: 'flask',
+    name: 'Flask',
+    icon: 'assets/tech-icons/flask.svg',
+    color: '#D2FF00',
+    ringIndex: 0,
+    orbitPhase: Math.PI * 1.5,
+    speedFactor: 0.95,
+    projects: [
+      { name: 'Leadis', github: 'https://github.com/SamSunny4/Leadis' },
+    ],
+  },
+
+  // --- RING 1: SYSTEMS, LOW-LEVEL & ENTERPRISE ARCHITECTURE ---
+  {
+    id: 'cs',
+    name: 'C#',
+    icon: 'assets/tech-icons/cs.svg',
+    color: '#A179DC',
+    ringIndex: 1,
+    orbitPhase: 0.2,
+    speedFactor: 1.0,
+    projects: [
+      { name: 'PresisionTouchTile', github: 'https://github.com/SamSunny4/PresisionTouchTile' },
+    ],
+  },
+  {
+    id: 'dotnet',
+    name: '.NET',
+    icon: 'assets/tech-icons/dotnet.svg',
+    color: '#512BD4',
+    ringIndex: 1,
+    orbitPhase: 0.2 + (Math.PI * 2 / 6),
+    speedFactor: 0.95,
+    projects: [
+      { name: 'PresisionTouchTile', github: 'https://github.com/SamSunny4/PresisionTouchTile' },
+    ],
+  },
+  {
+    id: 'c',
+    name: 'C',
+    icon: 'assets/tech-icons/c.svg',
+    color: '#659AD2',
+    ringIndex: 1,
+    orbitPhase: 0.2 + (Math.PI * 4 / 6),
+    speedFactor: 1.05,
+    projects: [
+      { name: 'Evade', github: 'https://github.com/SamSunny4/Evade' },
+      { name: 'FOC_C_PROJECT', github: 'https://github.com/SamSunny4/FOC_C_PROJECT_S2' },
+    ],
+  },
+  {
+    id: 'rust',
+    name: 'Rust',
+    icon: 'assets/tech-icons/rust.svg',
+    color: '#DEA584',
+    ringIndex: 1,
+    orbitPhase: 0.2 + (Math.PI * 6 / 6),
+    speedFactor: 1.08,
+    projects: [
+      { name: 'ShareDash', github: 'https://github.com/SamSunny4/ShareDash' },
+    ],
+  },
+  {
+    id: 'java',
+    name: 'Java',
+    icon: 'assets/tech-icons/java.svg',
+    color: '#F89820',
+    ringIndex: 1,
+    orbitPhase: 0.2 + (Math.PI * 8 / 6),
+    speedFactor: 0.92,
+    projects: [
+      { name: 'KeyBase', github: 'https://github.com/SamSunny4/KeyBase' },
+      { name: 'J.A.V.A', github: 'https://github.com/SamSunny4/J.A.V.A-Just-A-Volunteer-Away' },
+    ],
+  },
+  {
+    id: 'kotlin',
+    name: 'Kotlin',
+    icon: 'assets/tech-icons/kotlin.svg',
+    color: '#7F52FF',
+    ringIndex: 1,
+    orbitPhase: 0.2 + (Math.PI * 10 / 6),
+    speedFactor: 1.02,
+    projects: [
+      { name: 'ShareDash', github: 'https://github.com/SamSunny4/ShareDash' },
+      { name: 'Haptok', github: 'https://github.com/SamSunny4/Haptok' },
+      { name: 'VerticalLock', github: 'https://github.com/SamSunny4/VerticalLock' },
+    ],
+  },
+
+  // --- RING 2: MODERN WEB & INTERACTIVE UI ---
+  {
+    id: 'typescript',
+    name: 'TypeScript',
+    icon: 'assets/tech-icons/typescript.svg',
+    color: '#3178C6',
+    ringIndex: 2,
+    orbitPhase: 0.5,
+    speedFactor: 1.05,
+    projects: [
+      { name: 'InfoGrid', github: 'https://github.com/SamSunny4/InfoGrid' },
+      { name: 'Demomenu', github: 'https://github.com/SamSunny4/Demomenu' },
+    ],
+  },
+  {
+    id: 'javascript',
+    name: 'JavaScript',
+    icon: 'assets/tech-icons/javascript.svg',
+    color: '#F7DF1E',
+    ringIndex: 2,
+    orbitPhase: 0.5 + (Math.PI * 2 / 5),
+    speedFactor: 1.0,
+    projects: [
+      { name: 'Resume', github: 'https://github.com/SamSunny4/Resume' },
+      { name: 'DBMS', github: 'https://github.com/SamSunny4/DBMS' },
+      { name: 'FakePaste', github: 'https://github.com/SamSunny4/FakePaste' },
+    ],
+  },
+  {
+    id: 'react',
+    name: 'React',
+    icon: 'assets/tech-icons/react.svg',
+    color: '#00D8FF',
+    ringIndex: 2,
+    orbitPhase: 0.5 + (Math.PI * 4 / 5),
+    speedFactor: 0.96,
+    projects: [
+      { name: 'Rainiest', github: 'https://github.com/SamSunny4/Rainiest' },
+      { name: 'Leadis', github: 'https://github.com/SamSunny4/Leadis' },
+    ],
+  },
+  {
+    id: 'nextjs',
+    name: 'Next.js',
+    icon: 'assets/tech-icons/nextjs.svg',
+    color: '#FFFFFF',
+    ringIndex: 2,
+    orbitPhase: 0.5 + (Math.PI * 6 / 5),
+    speedFactor: 1.08,
+    projects: [
+      { name: 'InfoGrid', github: 'https://github.com/SamSunny4/InfoGrid' },
+      { name: 'Rainiest', github: 'https://github.com/SamSunny4/Rainiest' },
+      { name: 'DBMS', github: 'https://github.com/SamSunny4/DBMS' },
+    ],
+  },
+  {
+    id: 'tailwind',
+    name: 'Tailwind CSS',
+    icon: 'assets/tech-icons/tailwind.svg',
+    color: '#38BDF8',
+    ringIndex: 2,
+    orbitPhase: 0.5 + (Math.PI * 8 / 5),
+    speedFactor: 0.94,
+    projects: [
+      { name: 'InfoGrid', github: 'https://github.com/SamSunny4/InfoGrid' },
+      { name: 'Rainiest', github: 'https://github.com/SamSunny4/Rainiest' },
+      { name: 'Leadis', github: 'https://github.com/SamSunny4/Leadis' },
+    ],
+  },
+
+  // --- RING 3: CLOUD, DATA ARCHITECTURE & DEVOPS ---
+  {
+    id: 'postgres',
+    name: 'PostgreSQL',
+    icon: 'assets/tech-icons/postgres.svg',
+    color: '#336791',
+    ringIndex: 3,
+    orbitPhase: 0.1,
+    speedFactor: 0.98,
+    projects: [
+      { name: 'LateLoggy', github: 'https://github.com/SamSunny4/Resume' },
+    ],
+  },
+  {
+    id: 'mongodb',
+    name: 'MongoDB',
+    icon: 'assets/tech-icons/mongodb.svg',
+    color: '#47A248',
+    ringIndex: 3,
+    orbitPhase: 0.1 + (Math.PI * 2 / 7),
+    speedFactor: 1.04,
+    projects: [
+      { name: 'InfoGrid', github: 'https://github.com/SamSunny4/InfoGrid' },
+    ],
+  },
+  {
+    id: 'sqlite',
+    name: 'SQLite',
+    icon: 'assets/tech-icons/sqlite.svg',
+    color: '#003B57',
+    ringIndex: 3,
+    orbitPhase: 0.1 + (Math.PI * 4 / 7),
+    speedFactor: 1.0,
+    projects: [
+      { name: 'KeyBase', github: 'https://github.com/SamSunny4/KeyBase' },
+    ],
+  },
+  {
+    id: 'neo4j',
+    name: 'Neo4j',
+    icon: 'assets/tech-icons/neo4j.svg',
+    color: '#018BFF',
+    ringIndex: 3,
+    orbitPhase: 0.1 + (Math.PI * 6 / 7),
+    speedFactor: 0.95,
+    projects: [
+      { name: 'DBMS', github: 'https://github.com/SamSunny4/DBMS' },
+    ],
+  },
+  {
+    id: 'docker',
+    name: 'Docker',
+    icon: 'assets/tech-icons/docker.svg',
+    color: '#2496ED',
+    ringIndex: 3,
+    orbitPhase: 0.1 + (Math.PI * 8 / 7),
+    speedFactor: 1.02,
+    projects: [
+      { name: 'DBMS', github: 'https://github.com/SamSunny4/DBMS' },
+    ],
+  },
+  {
+    id: 'linux',
+    name: 'Linux',
+    icon: 'assets/tech-icons/linux.svg',
+    color: '#FCC624',
+    ringIndex: 3,
+    orbitPhase: 0.1 + (Math.PI * 10 / 7),
+    speedFactor: 0.93,
+    projects: [
+      { name: 'ShareDash', github: 'https://github.com/SamSunny4/ShareDash' },
+    ],
+  },
+  {
+    id: 'cloudflare',
+    name: 'Cloudflare',
+    icon: 'assets/tech-icons/cloudflare.svg',
+    color: '#F38020',
+    ringIndex: 3,
+    orbitPhase: 0.1 + (Math.PI * 12 / 7),
+    speedFactor: 1.06,
+    projects: [
+      { name: 'InfoGrid', github: 'https://github.com/SamSunny4/InfoGrid' },
+    ],
+  },
+
+  // --- RING 4: HARDWARE PROTOCOLS & PLATFORMS ---
+  {
+    id: 'git',
+    name: 'Git',
+    icon: 'assets/tech-icons/git.svg',
+    color: '#F05032',
+    ringIndex: 4,
+    orbitPhase: 0.8,
+    speedFactor: 1.12,
+    projects: [
+      { name: 'All Repos', github: 'https://github.com/SamSunny4' },
+    ],
+  },
+  {
+    id: 'android',
+    name: 'Android',
+    icon: 'assets/tech-icons/android.svg',
+    color: '#3DDC84',
+    ringIndex: 4,
+    orbitPhase: 0.8 + (Math.PI * 2 / 6),
+    speedFactor: 0.97,
+    projects: [
+      { name: 'ShareDash', github: 'https://github.com/SamSunny4/ShareDash' },
+      { name: 'VerticalLock', github: 'https://github.com/SamSunny4/VerticalLock' },
+      { name: 'Haptok', github: 'https://github.com/SamSunny4/Haptok' },
+    ],
+  },
+  {
+    id: 'windows',
+    name: 'Windows',
+    icon: 'assets/tech-icons/windows.svg',
+    color: '#0078D6',
+    ringIndex: 4,
+    orbitPhase: 0.8 + (Math.PI * 4 / 6),
+    speedFactor: 1.04,
+    projects: [
+      { name: 'KeyBase', github: 'https://github.com/SamSunny4/KeyBase' },
+      { name: 'ShareDash', github: 'https://github.com/SamSunny4/ShareDash' },
+    ],
+  },
+  {
+    id: 'ble',
+    name: 'BLE',
+    icon: 'assets/tech-icons/ble.svg',
+    color: '#0082FC',
+    ringIndex: 4,
+    orbitPhase: 0.8 + (Math.PI * 6 / 6),
+    speedFactor: 1.08,
+    projects: [
+      { name: 'ShareDash', github: 'https://github.com/SamSunny4/ShareDash' },
+    ],
+  },
+  {
+    id: 'wifi',
+    name: 'Wi-Fi Direct',
+    icon: 'assets/tech-icons/wifi.svg',
+    color: '#D2FF00',
+    ringIndex: 4,
+    orbitPhase: 0.8 + (Math.PI * 8 / 6),
+    speedFactor: 0.95,
+    projects: [
+      { name: 'ShareDash', github: 'https://github.com/SamSunny4/ShareDash' },
+    ],
+  },
+  {
+    id: 'swing',
+    name: 'Swing',
+    icon: 'assets/tech-icons/swing.svg',
+    color: '#E76F00',
+    ringIndex: 4,
+    orbitPhase: 0.8 + (Math.PI * 10 / 6),
+    speedFactor: 1.01,
+    projects: [
+      { name: 'KeyBase', github: 'https://github.com/SamSunny4/KeyBase' },
+    ],
+  },
+];
+
+// Chaotic Multi-Plane Orbital Geometry Definitions (Harmonically Scaled Orbits)
+const ORBIT_RINGS = [
+  // Ring 0: Inner Core (AI & Vision) — clearance around central text
+  {
+    baseRadiusX: 315,
+    baseRadiusY: 185,
+    tiltX: 0.36,     // 21 deg pitch
+    tiltY: -0.28,    // -16 deg yaw
+    tiltZ: 0.10,     // 6 deg roll
+    baseSpeed: 0.0155,
+    wobbleAmp: 15,
+    color: 'rgba(210, 255, 0, 0.14)',
+  },
+  // Ring 1: Systems & Low-Level — inclined counter-orbit
+  {
+    baseRadiusX: 455,
+    baseRadiusY: 265,
+    tiltX: -0.56,    // -32 deg pitch
+    tiltY: 0.36,     // 21 deg yaw
+    tiltZ: -0.20,
+    baseSpeed: -0.0120,
+    wobbleAmp: 20,
+    color: 'rgba(0, 240, 255, 0.14)',
+  },
+  // Ring 2: Web & Modern UI — wide tilted plane
+  {
+    baseRadiusX: 595,
+    baseRadiusY: 340,
+    tiltX: 0.62,     // 35 deg pitch
+    tiltY: -0.32,
+    tiltZ: 0.25,
+    baseSpeed: 0.0095,
+    wobbleAmp: 25,
+    color: 'rgba(255, 215, 0, 0.12)',
+  },
+  // Ring 3: Cloud & Data — deep eccentric outer orbit
+  {
+    baseRadiusX: 735,
+    baseRadiusY: 405,
+    tiltX: -0.30,
+    tiltY: 0.62,     // 35 deg yaw
+    tiltZ: -0.16,
+    baseSpeed: -0.0075,
+    wobbleAmp: 28,
+    color: 'rgba(90, 160, 220, 0.14)',
+  },
+  // Ring 4: Comets & Protocols — balanced steep polar inclination
+  {
+    baseRadiusX: 875,
+    baseRadiusY: 365,
+    tiltX: 1.15,     // 66 deg steep polar pitch!
+    tiltY: -0.48,
+    tiltZ: 0.58,
+    baseSpeed: 0.0082,
+    wobbleAmp: 32,
+    color: 'rgba(240, 100, 70, 0.14)',
+  },
+];
+
+export class TechSolarSystem {
+  constructor() {
+    this.stage = document.getElementById('solar-stage');
+    this.container = document.getElementById('solar-orbits-container');
+    this.canvas = document.getElementById('solar-canvas');
+    this.centerText = document.getElementById('solar-center-text');
+    
+    // Space Warp Zoom Stage Track & Layers
+    this.track = document.getElementById('space-stage-track');
+    this.heroLayer = document.getElementById('hero-space-layer');
+    this.techLayer = document.getElementById('tech-space-layer');
+    this.projectsLayer = document.getElementById('projects-space-layer');
+    this.credentialsLayer = document.getElementById('credentials-space-layer');
+
+    // Quick Jump Navigation Buttons
+    this.engageWormholeBtn = document.getElementById('engage-wormhole-btn');
+    this.heroProjectsBtn = document.getElementById('hero-projects-btn');
+    this.heroCredentialsBtn = document.getElementById('hero-credentials-btn');
+    this.engageCredentialsBtn = document.getElementById('engage-credentials-btn');
+    this.credReturnProjectsBtn = document.getElementById('cred-return-projects-btn');
+    this.returnTechBtn = document.getElementById('return-tech-btn');
+
+    // Near-Pointer Floating Tooltip
+    this.tooltip = document.getElementById('solar-cursor-tooltip');
+    this.tooltipIcon = document.getElementById('tooltip-icon');
+    this.tooltipTitle = document.getElementById('tooltip-title');
+    this.tooltipCategory = document.getElementById('tooltip-category');
+    this.tooltipDesc = document.getElementById('tooltip-desc');
+    this.tooltipFooter = document.getElementById('tooltip-footer');
+    this.tooltipProjectsSection = document.getElementById('tooltip-projects-section');
+    this.tooltipProjectsHeaderLabel = document.getElementById('tooltip-projects-header-label');
+    this.tooltipProjectsCount = document.getElementById('tooltip-projects-count');
+    this.tooltipProjectsList = document.getElementById('tooltip-projects-list');
+    this.tooltipCloseBtn = document.getElementById('tooltip-close-btn');
+
+    if (!this.stage || !this.container) {
+      console.warn('[Solar] Solar stage or container not found in DOM.');
+      return;
+    }
+
+    this.ctx = this.canvas ? this.canvas.getContext('2d') : null;
+    this.nodes = [];
+    this.hoveredNode = null;
+    this.time = 0;
+    this.isInViewport = true;
+    this.scaleRatio = 1.0;
+    this.stageWidth = 1200;
+    this.stageHeight = 700;
+
+    // Camera 3D Parallax angles (lerped)
+    this.camRotX = 0;
+    this.camRotY = 0;
+    this.targetCamRotX = 0;
+    this.targetCamRotY = 0;
+
+    // Pointer Coordinates & Interaction State for Tooltip
+    this.pointerClientX = -9999;
+    this.pointerClientY = -9999;
+    this.tooltipCurrentX = -9999;
+    this.tooltipCurrentY = -9999;
+    this.isTooltipActive = false;
+    this.isTooltipHovered = false;
+    this.isPinned = false;
+    this.leaveTimeout = null;
+
+    // Space Zoom, Warp Travel & Wormhole State
+    this.zoomProgress = 0;
+    this.targetZoomProgress = 0;
+    this.warpSpeed = 0;
+    this.wormholeIntensity = 0;
+
+    // Drifting 3D Stardust
+    this.stardust = this.generateStardust(65);
+
+    // Dynamic Mouse Proximity Orbit Speed Dilation
+    this.orbitDilation = 1.0;
+    this.targetOrbitDilation = 1.0;
+
+    // Bind methods
+    this.animate = this.animate.bind(this);
+    this.onResize = this.onResize.bind(this);
+    this.onScroll = this.onScroll.bind(this);
+    this.onPointerMove = this.onPointerMove.bind(this);
+    this.triggerSpaceZoom = this.triggerSpaceZoom.bind(this);
+    this.triggerProjectsZoom = this.triggerProjectsZoom.bind(this);
+    this.unpinTooltip = this.unpinTooltip.bind(this);
+    this.handleNodeClick = this.handleNodeClick.bind(this);
+
+    this.init();
+  }
+
+  init() {
+    this.buildNodesDOM();
+    this.onResize();
+    this.setupListeners();
+    this.setupIntersectionObserver();
+
+    // Start 60fps / 120fps render loop
+    requestAnimationFrame(this.animate);
+    console.log(`[Solar] 3D Solar System initialized with ${TECH_NODES.length} planetary tech nodes.`);
+  }
+
+  generateStardust(count) {
+    const stars = [];
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: (Math.random() - 0.5) * 1600,
+        y: (Math.random() - 0.5) * 1000,
+        z: Math.random() * 1200 - 400,
+        size: Math.random() * 1.8 + 0.6,
+        alpha: Math.random() * 0.5 + 0.25,
+        speed: Math.random() * 0.6 + 0.3,
+        pulseSpeed: Math.random() * 0.03 + 0.01,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
+    return stars;
+  }
+
+  buildNodesDOM() {
+    this.container.innerHTML = '';
+    this.nodes = [];
+
+    // Group nodes by ring to dynamically calculate equidistant phase distribution
+    const ringBuckets = {};
+    TECH_NODES.forEach((tech) => {
+      const rIdx = Math.max(0, Math.min(ORBIT_RINGS.length - 1, tech.ringIndex ?? 0));
+      if (!ringBuckets[rIdx]) ringBuckets[rIdx] = [];
+      ringBuckets[rIdx].push(tech);
+    });
+
+    Object.keys(ringBuckets).forEach((rKey) => {
+      const ringIndex = parseInt(rKey, 10);
+      const ring = ORBIT_RINGS[ringIndex];
+      const ringNodes = ringBuckets[ringIndex];
+      const totalInRing = ringNodes.length;
+
+      ringNodes.forEach((tech, itemIndex) => {
+        // Automatically space nodes evenly around 360 degrees
+        const initialTheta = (itemIndex / totalInRing) * Math.PI * 2 + (ringIndex * 0.45);
+
+        const el = document.createElement('div');
+        el.className = 'solar-node';
+        el.dataset.id = tech.id;
+        el.dataset.category = tech.category;
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('aria-label', `${tech.name}: ${tech.categoryLabel}`);
+
+        // Monogram fallback if SVG is missing
+        const fallbackMonogram = tech.name ? tech.name.replace(/[^a-zA-Z0-9]/g, '').substring(0, 2).toUpperCase() : 'UI';
+
+        el.innerHTML = `
+          <div class="solar-node-badge" style="--node-accent: ${tech.color}">
+            <img src="${tech.icon}" alt="${tech.name}" class="solar-node-img" loading="lazy" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<span style=\\'font-family: JetBrains Mono, monospace; font-size: 11px; font-weight: 800; color: ${tech.color};\\'>${fallbackMonogram}</span>');" />
+          </div>
+        `;
+
+        // Hover / Focus / Click interactions
+        el.addEventListener('pointerenter', (e) => this.handleNodeHover(tech, el, e));
+        el.addEventListener('pointerleave', () => this.handleNodeLeave());
+        el.addEventListener('focus', (e) => this.handleNodeHover(tech, el, e));
+        el.addEventListener('blur', () => this.handleNodeLeave());
+        el.addEventListener('click', (e) => this.handleNodeClick(tech, el, e));
+
+        this.container.appendChild(el);
+
+        this.nodes.push({
+          meta: tech,
+          ring: ring,
+          el: el,
+          theta: initialTheta,
+          projX: 0,
+          projY: 0,
+          projZ: 0,
+          scale: 1,
+          isFront: false,
+        });
+      });
+    });
+  }
+
+  handleNodeClick(tech, el, e) {
+    if (e) e.stopPropagation();
+    this.isPinned = true;
+    this.handleNodeHover(tech, el);
+    if (this.tooltipCloseBtn) {
+      this.tooltipCloseBtn.style.display = 'flex';
+    }
+    if (this.tooltip) {
+      this.tooltip.classList.add('is-pinned');
+    }
+  }
+
+  unpinTooltip() {
+    this.isPinned = false;
+    this.isTooltipHovered = false;
+    if (this.tooltipCloseBtn) {
+      this.tooltipCloseBtn.style.display = 'none';
+    }
+    if (this.tooltip) {
+      this.tooltip.classList.remove('is-pinned');
+      this.tooltip.classList.remove('is-visible');
+      this.isTooltipActive = false;
+    }
+    if (this.hoveredNode) {
+      const el = this.container?.querySelector(`[data-id="${this.hoveredNode.id}"]`);
+      if (el) el.classList.remove('is-hovered');
+      this.hoveredNode = null;
+    }
+  }
+
+  handleNodeHover(tech, el) {
+    if (this.leaveTimeout) {
+      clearTimeout(this.leaveTimeout);
+      this.leaveTimeout = null;
+    }
+
+    this.hoveredNode = tech;
+    const allNodes = this.container?.querySelectorAll('.solar-node');
+    if (allNodes) {
+      allNodes.forEach(nodeEl => {
+        nodeEl.classList.toggle('is-hovered', nodeEl.dataset.id === tech.id);
+      });
+    }
+
+    if (this.tooltip) {
+      if (this.tooltipIcon) {
+        this.tooltipIcon.src = tech.icon;
+        this.tooltipIcon.alt = tech.name;
+      }
+      if (this.tooltipTitle) {
+        this.tooltipTitle.textContent = tech.name;
+        this.tooltipTitle.style.color = tech.color || '#FFFFFF';
+      }
+
+      // Populate verified projects as clean minimal chips with Git links: [ ProjectName <gitsymbol> ]
+      if (this.tooltipProjectsList) {
+        this.tooltipProjectsList.innerHTML = '';
+        const projects = tech.projects || [];
+
+        if (projects.length > 0) {
+          if (this.tooltipProjectsSection) {
+            this.tooltipProjectsSection.style.display = 'flex';
+          }
+          projects.forEach(proj => {
+            const chip = document.createElement('a');
+            chip.className = 'tooltip-project-chip font-mono';
+            chip.href = proj.github;
+            chip.target = '_blank';
+            chip.rel = 'noopener noreferrer';
+            chip.title = `Open ${escapeHtml(proj.name)} on GitHub`;
+            chip.innerHTML = `
+              <span>${escapeHtml(proj.name)}</span>
+              <svg class="chip-git-icon" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            `;
+            this.tooltipProjectsList.appendChild(chip);
+          });
+        } else if (this.tooltipProjectsSection) {
+          this.tooltipProjectsSection.style.display = 'none';
+        }
+      }
+
+      this.tooltip.style.setProperty('--tooltip-accent', tech.color || '#D2FF00');
+      this.tooltip.style.setProperty('--tooltip-glow', `${tech.color || '#D2FF00'}44`);
+
+      // Initialize position if not pinned
+      if (!this.isPinned && this.pointerClientX > -1000) {
+        const tooltipRect = this.tooltip.getBoundingClientRect();
+        const tooltipWidth = tooltipRect.width || 200;
+        const tooltipHeight = tooltipRect.height || 100;
+        let initX = this.pointerClientX + 16;
+        let initY = this.pointerClientY + 16;
+        if (initX + tooltipWidth > window.innerWidth - 16) {
+          initX = this.pointerClientX - tooltipWidth - 16;
+        }
+        if (initY + tooltipHeight > window.innerHeight - 16) {
+          initY = this.pointerClientY - tooltipHeight - 16;
+        }
+        this.tooltipCurrentX = Math.max(12, initX);
+        this.tooltipCurrentY = Math.max(12, initY);
+        this.tooltip.style.transform = `translate3d(${this.tooltipCurrentX.toFixed(1)}px, ${this.tooltipCurrentY.toFixed(1)}px, 0)`;
+      }
+
+      this.tooltip.classList.add('is-visible');
+      this.isTooltipActive = true;
+    }
+  }
+
+  handleNodeLeave() {
+    if (this.isPinned) return;
+
+    if (this.leaveTimeout) {
+      clearTimeout(this.leaveTimeout);
+    }
+
+    this.leaveTimeout = setTimeout(() => {
+      if (!this.isTooltipHovered && !this.isPinned) {
+        if (this.hoveredNode) {
+          const el = this.container?.querySelector(`[data-id="${this.hoveredNode.id}"]`);
+          if (el) el.classList.remove('is-hovered');
+          this.hoveredNode = null;
+        }
+
+        if (this.tooltip) {
+          this.tooltip.classList.remove('is-visible');
+          this.isTooltipActive = false;
+        }
+      }
+    }, 280);
+  }
+
+  updateTooltipPosition() {
+    if (!this.isTooltipActive || !this.tooltip) return;
+    if (this.isTooltipHovered || this.isPinned) return;
+
+    const tooltipRect = this.tooltip.getBoundingClientRect();
+    const tooltipWidth = tooltipRect.width || 200;
+    const tooltipHeight = tooltipRect.height || 100;
+    let targetX = this.pointerClientX + 16;
+    let targetY = this.pointerClientY + 16;
+
+    // Prevent clipping right screen edge
+    if (targetX + tooltipWidth > window.innerWidth - 16) {
+      targetX = this.pointerClientX - tooltipWidth - 16;
+    }
+    // Prevent clipping bottom screen edge
+    if (targetY + tooltipHeight > window.innerHeight - 16) {
+      targetY = this.pointerClientY - tooltipHeight - 16;
+    }
+    targetX = Math.max(12, targetX);
+    targetY = Math.max(12, targetY);
+
+    // Smooth lerp
+    this.tooltipCurrentX += (targetX - this.tooltipCurrentX) * 0.24;
+    this.tooltipCurrentY += (targetY - this.tooltipCurrentY) * 0.24;
+
+    this.tooltip.style.transform = `translate3d(${this.tooltipCurrentX.toFixed(1)}px, ${this.tooltipCurrentY.toFixed(1)}px, 0)`;
+  }
+
+  setupListeners() {
+    window.addEventListener('resize', this.onResize, { passive: true });
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('pointermove', this.onPointerMove, { passive: true });
+    window.addEventListener('pointerleave', () => {
+      this.pointerClientX = -9999;
+      this.pointerClientY = -9999;
+      this.targetOrbitDilation = 1.0;
+      this.targetProjectsDilation = 1.0;
+    });
+
+    // Tooltip hover & pin controls
+    if (this.tooltipCloseBtn) {
+      this.tooltipCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.unpinTooltip();
+      });
+    }
+
+    if (this.tooltip) {
+      this.tooltip.addEventListener('pointerenter', () => {
+        if (this.leaveTimeout) {
+          clearTimeout(this.leaveTimeout);
+          this.leaveTimeout = null;
+        }
+        this.isTooltipHovered = true;
+      });
+
+      this.tooltip.addEventListener('pointerleave', () => {
+        this.isTooltipHovered = false;
+        if (!this.isPinned) {
+          this.handleNodeLeave();
+        }
+      });
+    }
+
+    document.addEventListener('pointerdown', (e) => {
+      if (this.isPinned && this.tooltip && !this.tooltip.contains(e.target) && !this.container?.contains(e.target)) {
+        this.unpinTooltip();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isPinned) {
+        this.unpinTooltip();
+      }
+    });
+
+    // Smooth space zoom button in hero
+    const exploreBtn = document.getElementById('hero-explore-btn');
+    if (exploreBtn) {
+      exploreBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.triggerSpaceZoom();
+      });
+    }
+
+    if (this.heroProjectsBtn) {
+      this.heroProjectsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.triggerProjectsZoom();
+      });
+    }
+
+    if (this.heroCredentialsBtn) {
+      this.heroCredentialsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.triggerCredentialsZoom();
+      });
+    }
+
+    if (this.engageWormholeBtn) {
+      this.engageWormholeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.triggerProjectsZoom();
+      });
+    }
+
+    if (this.engageCredentialsBtn) {
+      this.engageCredentialsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.triggerCredentialsZoom();
+      });
+    }
+
+    if (this.returnTechBtn) {
+      this.returnTechBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.triggerTechZoom();
+      });
+    }
+
+    if (this.credReturnProjectsBtn) {
+      this.credReturnProjectsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.triggerProjectsZoom();
+      });
+    }
+  }
+
+  triggerSpaceZoom() {
+    if (!this.track) return;
+    const trackTop = this.track.offsetTop;
+    const maxScroll = this.track.offsetHeight - window.innerHeight;
+    const targetY = trackTop + maxScroll * 0.28;
+
+    if (window.AppState && window.AppState.lenis) {
+      window.AppState.lenis.scrollTo(targetY, { duration: 1.4 });
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  }
+
+  triggerProjectsZoom() {
+    if (!this.track) return;
+    const trackTop = this.track.offsetTop;
+    const maxScroll = this.track.offsetHeight - window.innerHeight;
+    const targetY = trackTop + maxScroll * 0.60;
+
+    if (window.AppState && window.AppState.lenis) {
+      window.AppState.lenis.scrollTo(targetY, { duration: 1.8 });
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  }
+
+  triggerTechZoom() {
+    if (!this.track) return;
+    const trackTop = this.track.offsetTop;
+    const maxScroll = this.track.offsetHeight - window.innerHeight;
+    const targetY = trackTop + maxScroll * 0.28;
+
+    if (window.AppState && window.AppState.lenis) {
+      window.AppState.lenis.scrollTo(targetY, { duration: 1.4 });
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  }
+
+  triggerCredentialsZoom() {
+    if (!this.track) return;
+    const trackTop = this.track.offsetTop;
+    const maxScroll = this.track.offsetHeight - window.innerHeight;
+    const targetY = trackTop + maxScroll * 0.88;
+
+    if (window.AppState && window.AppState.credStones) {
+      window.AppState.credStones.trigger(true);
+    }
+
+    if (window.AppState && window.AppState.lenis) {
+      window.AppState.lenis.scrollTo(targetY, { duration: 2.0 });
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  }
+
+  onPointerMove(e) {
+    this.pointerClientX = e.clientX;
+    this.pointerClientY = e.clientY;
+
+    if (!this.isInViewport) return;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    // Normalized mouse (-1 to +1) relative to screen center
+    const nx = Math.max(-1, Math.min(1, (e.clientX - centerX) / (window.innerWidth / 2)));
+    const ny = Math.max(-1, Math.min(1, (e.clientY - centerY) / (window.innerHeight / 2)));
+
+    this.targetCamRotY = nx * 0.44; // Max ~25 deg yaw
+    this.targetCamRotX = -ny * 0.35; // Max ~20 deg pitch
+  }
+
+  onScroll() {
+    // Scroll event triggers progress update in animation loop
+  }
+
+  onResize() {
+    if (!this.stage) return;
+    this.stageWidth = window.innerWidth;
+    this.stageHeight = window.innerHeight;
+
+    // Responsive scaling ratio for orbits
+    const widthScale = this.stageWidth / 1440;
+    const heightScale = this.stageHeight / 850;
+    const uniformScale = Math.min(widthScale, heightScale);
+
+    if (this.stageWidth < 600) {
+      this.scaleRatio = Math.max(0.35, uniformScale * 0.90);
+    } else if (this.stageWidth < 900) {
+      this.scaleRatio = Math.max(0.50, uniformScale * 0.95);
+    } else if (this.stageWidth < 1200) {
+      this.scaleRatio = Math.max(0.68, uniformScale);
+    } else if (this.stageWidth < 1600) {
+      this.scaleRatio = Math.max(0.82, uniformScale);
+    } else {
+      this.scaleRatio = Math.min(1.08, Math.max(0.88, uniformScale));
+    }
+
+    if (this.canvas) {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      this.canvas.width = this.stageWidth * dpr;
+      this.canvas.height = this.stageHeight * dpr;
+      this.canvas.style.width = `${this.stageWidth}px`;
+      this.canvas.style.height = `${this.stageHeight}px`;
+      if (this.ctx) {
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        this.ctx.scale(dpr, dpr);
+      }
+    }
+  }
+
+  setupIntersectionObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          this.isInViewport = entry.isIntersecting;
+        });
+      },
+      { rootMargin: '100px 0px 100px 0px', threshold: 0.02 }
+    );
+    if (this.track) {
+      observer.observe(this.track);
+    }
+  }
+
+  /**
+   * Continuous Scroll-Driven 4-Phase Cosmic Travel & Wormhole Transit Engine
+   */
+  updateSpaceZoom() {
+    if (!this.track) return;
+    const rect = this.track.getBoundingClientRect();
+    const maxScroll = this.track.offsetHeight - window.innerHeight;
+    const rawProgress = maxScroll > 0 ? Math.max(0, Math.min(1, -rect.top / maxScroll)) : 0;
+
+    // Smooth lerp progress (faster during transits to prevent sluggishness)
+    this.targetZoomProgress = rawProgress;
+    const lerpFactor = (rawProgress > 0.32 && rawProgress < 0.86) ? 0.18 : 0.12;
+    this.zoomProgress += (this.targetZoomProgress - this.zoomProgress) * lerpFactor;
+    const p = this.zoomProgress;
+
+    // Velocity-based dynamic warp speed
+    const deltaP = Math.abs(this.targetZoomProgress - this.zoomProgress);
+
+    // -----------------------------------------------------------------
+    // Phase 1: Hero Layer [0.00 -> 0.18]
+    // -----------------------------------------------------------------
+    if (this.heroLayer) {
+      const heroP = Math.min(1, Math.max(0, p / 0.16));
+      const heroScale = 1.0 + heroP * 2.2;
+      const heroOpacity = Math.max(0, 1.0 - heroP * 1.45);
+      const heroBlur = heroP * 18;
+
+      this.heroLayer.style.transform = `scale(${heroScale.toFixed(3)}) translateZ(0)`;
+      this.heroLayer.style.opacity = heroOpacity.toFixed(3);
+      this.heroLayer.style.filter = heroBlur > 0.4 ? `blur(${heroBlur.toFixed(1)}px)` : 'none';
+      this.heroLayer.style.pointerEvents = heroP > 0.10 ? 'none' : 'auto';
+      this.heroLayer.style.visibility = heroOpacity <= 0.005 ? 'hidden' : 'visible';
+    }
+
+    // -----------------------------------------------------------------
+    // Phase 2: Tech Stack Layer [0.08 -> 0.52]
+    // -----------------------------------------------------------------
+    if (this.techLayer) {
+      if (p <= 0.08) {
+        this.techLayer.style.opacity = '0';
+        this.techLayer.style.visibility = 'hidden';
+        this.techLayer.style.pointerEvents = 'none';
+        this.techLayer.style.transform = 'scale(0.18) translateZ(0)';
+        this.techLayer.style.filter = 'blur(16px)';
+      } else if (p <= 0.36) {
+        // Enters from deep space & remains actively interactive
+        this.techLayer.style.visibility = 'visible';
+        const enterP = Math.min(1, (p - 0.08) / 0.12);
+        const easedEnter = Math.sin((enterP * Math.PI) / 2);
+
+        const techScale = 0.18 + easedEnter * 0.82;
+        const techOpacity = Math.min(1, enterP * 1.25);
+        const techBlur = (1 - easedEnter) * 16;
+
+        this.techLayer.style.transform = `scale(${techScale.toFixed(3)}) translateZ(0)`;
+        this.techLayer.style.opacity = techOpacity.toFixed(3);
+        this.techLayer.style.filter = techBlur > 0.4 ? `blur(${techBlur.toFixed(1)}px)` : 'none';
+        this.techLayer.style.pointerEvents = enterP > 0.8 ? 'auto' : 'none';
+      } else if (p <= 0.52) {
+        // EXACT SAME AS LANDING PAGE (HERO) EXIT:
+        // Zooms forward straight past the camera (scale 1.0 -> 3.2), blurs (0 -> 18px), and fades out!
+        this.techLayer.style.visibility = 'visible';
+        const exitP = Math.min(1, Math.max(0, (p - 0.36) / 0.16));
+        const techScale = 1.0 + exitP * 2.2;
+        const techOpacity = Math.max(0, 1.0 - exitP * 1.45);
+        const techBlur = exitP * 18;
+
+        this.techLayer.style.transform = `scale(${techScale.toFixed(3)}) translateZ(0)`;
+        this.techLayer.style.opacity = techOpacity.toFixed(3);
+        this.techLayer.style.filter = techBlur > 0.4 ? `blur(${techBlur.toFixed(1)}px)` : 'none';
+        this.techLayer.style.pointerEvents = exitP > 0.10 ? 'none' : 'auto';
+        this.techLayer.style.visibility = techOpacity <= 0.005 ? 'hidden' : 'visible';
+      } else {
+        this.techLayer.style.opacity = '0';
+        this.techLayer.style.visibility = 'hidden';
+        this.techLayer.style.pointerEvents = 'none';
+      }
+    }
+
+    // -----------------------------------------------------------------
+    // Dynamic Hyperspace Star Warp Speeds (Matching across all transitions)
+    // -----------------------------------------------------------------
+    // 1. Hero -> Tech Stack Warp Surge
+    const heroWarp = (p > 0.02 && p < 0.18) ? Math.sin((p / 0.18) * Math.PI) * 2.5 : 0;
+    // 2. Tech Stack -> Projects Warp Surge (EXACT SAME AS HERO -> TECH STACK!)
+    const techToProjWarp = (p > 0.36 && p < 0.54) ? Math.sin(((p - 0.36) / 0.18) * Math.PI) * 2.5 : 0;
+    // 3. Projects -> Credentials Warp Surge
+    const journeyWarp = (p > 0.68 && p < 0.84) ? Math.sin(((p - 0.68) / 0.16) * Math.PI) * 2.5 : 0;
+
+    this.wormholeIntensity = 0; // Disable obsolete dark bubble
+    this.warpSpeed = Math.max(0, deltaP * 24 + heroWarp + techToProjWarp + journeyWarp);
+
+    // -----------------------------------------------------------------
+    // Phase 3: Projects Solar System Layer [0.44 -> 0.76]
+    // (EXACT SAME AS TECH STACK ENTER FROM HERO!)
+    // -----------------------------------------------------------------
+    if (this.projectsLayer) {
+      if (p <= 0.44) {
+        this.projectsLayer.style.opacity = '0';
+        this.projectsLayer.style.visibility = 'hidden';
+        this.projectsLayer.style.pointerEvents = 'none';
+        this.projectsLayer.style.transform = 'scale(0.18) translateZ(0)';
+        this.projectsLayer.style.filter = 'blur(16px)';
+      } else if (p <= 0.70) {
+        // Enters from deep space & remains actively interactive (0.44 -> 0.56 -> 0.70)
+        this.projectsLayer.style.visibility = 'visible';
+        const projP = Math.min(1, Math.max(0, (p - 0.44) / 0.12));
+        const easedProj = Math.sin((projP * Math.PI) / 2);
+
+        const projScale = 0.18 + easedProj * 0.82; // zooms in from deep space: 0.18 -> 1.00!
+        const projOpacity = Math.min(1, projP * 1.25);
+        const projBlur = (1 - easedProj) * 16;
+
+        this.projectsLayer.style.transform = `scale(${projScale.toFixed(3)}) translateZ(0)`;
+        this.projectsLayer.style.opacity = projOpacity.toFixed(3);
+        this.projectsLayer.style.filter = projBlur > 0.4 ? `blur(${projBlur.toFixed(1)}px)` : 'none';
+        this.projectsLayer.style.pointerEvents = projP > 0.85 ? 'auto' : 'none';
+      } else if (p <= 0.84) {
+        // Warps forward past camera as user journeys to Credentials
+        this.projectsLayer.style.visibility = 'visible';
+        const exitP = Math.min(1, Math.max(0, (p - 0.70) / 0.14));
+        const projScale = 1.0 + exitP * 2.2;
+        const projOpacity = Math.max(0, 1.0 - exitP * 1.45);
+        const projBlur = exitP * 18;
+
+        this.projectsLayer.style.transform = `scale(${projScale.toFixed(3)}) translateZ(0)`;
+        this.projectsLayer.style.opacity = projOpacity.toFixed(3);
+        this.projectsLayer.style.filter = projBlur > 0.4 ? `blur(${projBlur.toFixed(1)}px)` : 'none';
+        this.projectsLayer.style.pointerEvents = 'none';
+      } else {
+        this.projectsLayer.style.opacity = '0';
+        this.projectsLayer.style.visibility = 'hidden';
+        this.projectsLayer.style.pointerEvents = 'none';
+      }
+    }
+
+    // -----------------------------------------------------------------
+    // Phase 6: Credentials Infinity Stones Celestial Nexus [0.72 -> 1.00]
+    // -----------------------------------------------------------------
+    if (this.credentialsLayer) {
+      if (p <= 0.72) {
+        this.credentialsLayer.style.opacity = '0';
+        this.credentialsLayer.style.visibility = 'hidden';
+        this.credentialsLayer.style.pointerEvents = 'none';
+        this.credentialsLayer.style.transform = 'scale(0.24) translateZ(0)';
+      } else {
+        this.credentialsLayer.style.visibility = 'visible';
+        const credP = Math.min(1, Math.max(0, (p - 0.72) / 0.12));
+        const easedCred = Math.sin((credP * Math.PI) / 2);
+
+        const credScale = 0.24 + easedCred * 0.76;
+        const credOpacity = Math.min(1, credP * 1.35);
+        const credBlur = (1 - easedCred) * 16;
+
+        this.credentialsLayer.style.transform = `scale(${credScale.toFixed(3)}) translateZ(0)`;
+        this.credentialsLayer.style.opacity = credOpacity.toFixed(3);
+        this.credentialsLayer.style.filter = credBlur > 0.4 ? `blur(${credBlur.toFixed(1)}px)` : 'none';
+        this.credentialsLayer.style.pointerEvents = credP > 0.85 ? 'auto' : 'none';
+
+        // Trigger Infinity Stones assembly right as we arrive via space journey
+        if (p >= 0.75 && window.AppState && window.AppState.credStones && !window.AppState.credStones.isTriggered) {
+          window.AppState.credStones.trigger();
+        }
+      }
+    }
+  }
+
+  /**
+   * 3D Rotation Math & Camera Projection Engine
+   */
+  project3D(x0, y0, z0, ring, camX, camY) {
+    // 1. Local orbital plane Euler rotation
+    const y1 = y0 * Math.cos(ring.tiltX) - z0 * Math.sin(ring.tiltX);
+    const z1 = y0 * Math.sin(ring.tiltX) + z0 * Math.cos(ring.tiltX);
+    const x1 = x0;
+
+    const x2 = x1 * Math.cos(ring.tiltY) + z1 * Math.sin(ring.tiltY);
+    const z2 = -x1 * Math.sin(ring.tiltY) + z1 * Math.cos(ring.tiltY);
+    const y2 = y1;
+
+    const x3 = x2 * Math.cos(ring.tiltZ) - y2 * Math.sin(ring.tiltZ);
+    const y3 = x2 * Math.sin(ring.tiltZ) + y2 * Math.cos(ring.tiltZ);
+    const z3 = z2;
+
+    // 2. Global Camera / Parallax Rotation
+    const xCam = x3 * Math.cos(camY) + z3 * Math.sin(camY);
+    const zCam1 = -x3 * Math.sin(camY) + z3 * Math.cos(camY);
+
+    const yCam = y3 * Math.cos(camX) - zCam1 * Math.sin(camX);
+    const zCam = y3 * Math.sin(camX) + zCam1 * Math.cos(camX);
+
+    // 3. Perspective Projection
+    const fov = 850;
+    const perspectiveScale = fov / (fov - zCam);
+
+    return {
+      screenX: xCam * perspectiveScale,
+      screenY: yCam * perspectiveScale,
+      depthZ: zCam,
+      scale: perspectiveScale,
+    };
+  }
+  /**
+   * Heavy Optical Glass Refraction Function
+   * Bends light rays passing through or near the spherical glass lens with heavy magnification & curvature
+   */
+  refractPoint(x, y, lensX, lensY, lensR, intensity) {
+    const dx = x - lensX;
+    const dy = y - lensY;
+    const dist = Math.hypot(dx, dy);
+    const maxR = lensR * 1.30;
+
+    if (dist < maxR && dist > 0.05) {
+      const u = dist / lensR;
+      let disp;
+      if (u <= 1.0) {
+        // Inside glass: heavy convex dome refraction (strong magnification + outward deflection)
+        const dome = Math.sqrt(Math.max(0, 1.0 - u * u));
+        disp = (0.85 * dome + 1.15 * (1.0 - dome)) * intensity;
+      } else {
+        // Outside glass edge: smooth cubic Hermite falloff into ambient space
+        const t = (1.30 - u) / 0.30;
+        const s = t * t * (3 - 2 * t);
+        disp = 1.15 * s * intensity;
+      }
+
+      const factor = 1.0 + disp;
+      return {
+        x: lensX + dx * factor,
+        y: lensY + dy * factor,
+        inGlass: u <= 1.0,
+      };
+    }
+
+    return { x, y, inGlass: false };
+  }
+
+  /**
+   * Render Canvas Background: Hyperspace Warp Stardust & 3D Orbital Rings
+   */
+  renderCanvas(camX, camY) {
+    if (!this.ctx) return;
+    const ctx = this.ctx;
+    const w = this.stageWidth;
+    const h = this.stageHeight;
+    const centerX = w / 2;
+    const centerY = h / 2;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const isWarping = this.warpSpeed > 0.35;
+    const warpStreakLength = Math.min(140, this.warpSpeed * 32);
+
+    const hasLens = this.wormholeIntensity > 0.005;
+    const lensIntensity = this.wormholeIntensity;
+    const lensX = centerX + camY * 28;
+    const lensY = centerY - camX * 28;
+    const lensR = Math.min(w, h) * (0.22 + 0.16 * lensIntensity);
+
+    // 1. Draw 3D Stardust with Space Warp Streaks & Heavy Optical Glass Refraction
+    this.stardust.forEach(star => {
+      // Advance star along Z toward camera
+      star.z -= (star.speed + this.warpSpeed * 7);
+      if (star.z < -400) star.z += 1200;
+
+      const xCam = star.x * Math.cos(camY) + star.z * Math.sin(camY);
+      const zCam1 = -star.x * Math.sin(camY) + star.z * Math.cos(camY);
+      const yCam = star.y * Math.cos(camX) - zCam1 * Math.sin(camX);
+      const zCam = star.y * Math.sin(camX) + zCam1 * Math.cos(camX);
+
+      const fov = 850;
+      const s = fov / (fov - zCam);
+      if (s <= 0 || s > 3.5) return;
+
+      const pxRaw = centerX + xCam * s;
+      const pyRaw = centerY + yCam * s;
+
+      let px = pxRaw;
+      let py = pyRaw;
+      let inGlass = false;
+
+      // Heavy optical glass convex refraction on star head
+      if (hasLens) {
+        const rHead = this.refractPoint(pxRaw, pyRaw, lensX, lensY, lensR, lensIntensity);
+        px = rHead.x;
+        py = rHead.y;
+        inGlass = rHead.inGlass;
+      }
+
+      if (px >= -80 && px <= w + 80 && py >= -80 && py <= h + 80) {
+        const pulse = 0.6 + 0.4 * Math.sin(this.time * star.pulseSpeed + star.phase);
+        let starAlpha = Math.min(1, star.alpha * pulse * Math.min(1.2, s));
+
+        if (isWarping) {
+          // Draw clean hyperspace warp speed streak line backwards into space
+          const tailZ = star.z + warpStreakLength;
+          const xTail = star.x * Math.cos(camY) + tailZ * Math.sin(camY);
+          const zTail1 = -star.x * Math.sin(camY) + tailZ * Math.cos(camY);
+          const yTail = star.y * Math.cos(camX) - zTail1 * Math.sin(camX);
+          const zTail = star.y * Math.sin(camX) + zTail1 * Math.cos(camX);
+
+          const sTail = fov / (fov - zTail);
+          if (sTail > 0) {
+            const pTailXRaw = centerX + xTail * sTail;
+            const pTailYRaw = centerY + yTail * sTail;
+
+            let pTailX = pTailXRaw;
+            let pTailY = pTailYRaw;
+            let pMidX = (pxRaw + pTailXRaw) * 0.5;
+            let pMidY = (pyRaw + pTailYRaw) * 0.5;
+
+            // Heavy non-linear refraction: bending streaks along curved glass geometry
+            if (hasLens) {
+              const rTail = this.refractPoint(pTailXRaw, pTailYRaw, lensX, lensY, lensR, lensIntensity);
+              pTailX = rTail.x;
+              pTailY = rTail.y;
+
+              const rMid = this.refractPoint(pMidX, pMidY, lensX, lensY, lensR, lensIntensity);
+              pMidX = rMid.x;
+              pMidY = rMid.y;
+
+              if (rTail.inGlass || rMid.inGlass || inGlass) {
+                inGlass = true;
+              }
+            }
+
+            const streakAlpha = Math.min(0.95, starAlpha * (inGlass ? 2.0 : 1.6));
+            ctx.beginPath();
+            ctx.moveTo(pTailX, pTailY);
+            if (hasLens) {
+              // Physically curve the light streak through the curved glass lens
+              ctx.quadraticCurveTo(pMidX, pMidY, px, py);
+            } else {
+              ctx.lineTo(px, py);
+            }
+            ctx.strokeStyle = `rgba(255, 255, 255, ${streakAlpha.toFixed(3)})`;
+            ctx.lineWidth = Math.max(1, star.size * s * (inGlass ? 1.2 : 0.85));
+            ctx.stroke();
+          }
+        } else {
+          // Normal point stardust (pure neutral starlight)
+          const pointAlpha = inGlass ? Math.min(1.0, starAlpha * 1.5) : starAlpha;
+          ctx.fillStyle = `rgba(242, 245, 255, ${pointAlpha.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(px, py, star.size * Math.min(3, s * (inGlass ? 1.6 : 1.0)), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    });
+
+    // 2. Draw 3D Tech Stack Orbital Rings (only when Tech Stack is blooming in and active: 0.08 -> 0.45)
+    if (this.zoomProgress > 0.08 && this.zoomProgress < 0.45) {
+      const inP = Math.min(1, Math.max(0, (this.zoomProgress - 0.08) / 0.12));
+      const outP = Math.max(0, 1 - (this.zoomProgress - 0.36) / 0.08);
+      const ringAlphaMultiplier = inP * outP;
+
+      if (ringAlphaMultiplier > 0.01) {
+        ORBIT_RINGS.forEach((ring) => {
+          const a = ring.baseRadiusX * this.scaleRatio;
+          const b = ring.baseRadiusY * this.scaleRatio;
+          const segments = 90;
+
+          const points = [];
+          for (let i = 0; i <= segments; i++) {
+            const phi = (i / segments) * Math.PI * 2;
+            const x0 = a * Math.cos(phi);
+            const y0 = b * Math.sin(phi);
+            const p = this.project3D(x0, y0, 0, ring, camX, camY);
+            points.push({
+              x: centerX + p.screenX,
+              y: centerY + p.screenY,
+              z: p.depthZ,
+            });
+          }
+
+          // Draw background segments (faint, behind)
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          let isDrawing = false;
+          for (let i = 0; i < points.length; i++) {
+            const pt = points[i];
+            if (pt.z < 0) {
+              if (!isDrawing) { ctx.moveTo(pt.x, pt.y); isDrawing = true; }
+              else { ctx.lineTo(pt.x, pt.y); }
+            } else { isDrawing = false; }
+          }
+          ctx.strokeStyle = ring.color.replace(/[\d\.]+\)$/, `${(0.05 * ringAlphaMultiplier).toFixed(2)})`);
+          ctx.setLineDash([3, 5]);
+          ctx.stroke();
+
+          // Draw foreground segments (subtle, clean, over)
+          ctx.beginPath();
+          isDrawing = false;
+          for (let i = 0; i < points.length; i++) {
+            const pt = points[i];
+            if (pt.z >= 0) {
+              if (!isDrawing) { ctx.moveTo(pt.x, pt.y); isDrawing = true; }
+              else { ctx.lineTo(pt.x, pt.y); }
+            } else { isDrawing = false; }
+          }
+          ctx.strokeStyle = ring.color.replace(/[\d\.]+\)$/, `${(0.14 * ringAlphaMultiplier).toFixed(2)})`);
+          ctx.setLineDash([]);
+          ctx.stroke();
+
+          // Travelling photon energy packet (crisp dot, subtle glint)
+          const photonPhase = (this.time * ring.baseSpeed * 2) % (Math.PI * 2);
+          const px0 = a * Math.cos(photonPhase);
+          const py0 = b * Math.sin(photonPhase);
+          const photonProj = this.project3D(px0, py0, 0, ring, camX, camY);
+          if (photonProj.depthZ >= 0) {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.shadowColor = ring.color;
+            ctx.shadowBlur = 4;
+            ctx.beginPath();
+            ctx.arc(centerX + photonProj.screenX, centerY + photonProj.screenY, 1.5 * photonProj.scale, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+        });
+      }
+    }
+
+    // 3. Render Relativistic Wormhole Transit (Phase 3: 0.46 -> 0.76)
+    if (this.wormholeIntensity > 0.005) {
+      this.renderWormhole(camX, camY);
+    }
+
+    // 3. Laser connection line if tech node is hovered (targeting guide)
+    if (this.hoveredNode && this.zoomProgress > 0.20 && this.zoomProgress < 0.65) {
+      const activeNode = this.nodes.find(n => n.meta.id === this.hoveredNode.id);
+      if (activeNode) {
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(centerX + activeNode.projX, centerY + activeNode.projY);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+  }
+
+  /**
+   * Render Clean Optical Glass Lens
+   * Strictly NO outline, NO colors - heavy optical glass refraction volume only.
+   * Occurs during Phase 3 (p: 0.46 -> 0.76), peaking at singularity transit (p ~ 0.61)
+   */
+  renderWormhole(camX, camY) {
+    if (!this.ctx || this.wormholeIntensity <= 0.005) return;
+    const ctx = this.ctx;
+    const w = this.stageWidth;
+    const h = this.stageHeight;
+    const centerX = w / 2;
+    const centerY = h / 2;
+    const intensity = this.wormholeIntensity; // 0.0 -> 1.0 -> 0.0
+
+    ctx.save();
+
+    // 1. Dynamic Parallax Optical Lens Center & Radius
+    const lensX = centerX + camY * 28;
+    const lensY = centerY - camX * 28;
+    const lensR = Math.min(w, h) * (0.22 + 0.16 * intensity);
+
+    // 2. Optical Glass Body (Transparent, subtle neutral glass shading - ZERO outline, fades to 0)
+    const glassGrad = ctx.createRadialGradient(
+      lensX - lensR * 0.25, lensY - lensR * 0.25, 0,
+      lensX, lensY, lensR
+    );
+    glassGrad.addColorStop(0.00, `rgba(255, 255, 255, ${(0.05 * intensity).toFixed(3)})`);
+    glassGrad.addColorStop(0.55, `rgba(0, 0, 0, ${(0.06 * intensity).toFixed(3)})`);
+    glassGrad.addColorStop(0.85, `rgba(0, 0, 0, ${(0.14 * intensity).toFixed(3)})`);
+    glassGrad.addColorStop(1.00, 'rgba(0, 0, 0, 0)'); // Fades smoothly to 0 - NO OUTLINE
+
+    ctx.fillStyle = glassGrad;
+    ctx.beginPath();
+    ctx.arc(lensX, lensY, lensR, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. Spherical Convex Glass Specular Sheen (Curved White Reflection Arc - NO stroke)
+    const glareGrad = ctx.createRadialGradient(
+      lensX - lensR * 0.35, lensY - lensR * 0.35, 0,
+      lensX - lensR * 0.35, lensY - lensR * 0.35, lensR * 0.70
+    );
+    glareGrad.addColorStop(0.00, `rgba(255, 255, 255, ${(0.12 * intensity).toFixed(3)})`);
+    glareGrad.addColorStop(0.40, `rgba(255, 255, 255, ${(0.02 * intensity).toFixed(3)})`);
+    glareGrad.addColorStop(1.00, 'rgba(255, 255, 255, 0)');
+
+    ctx.fillStyle = glareGrad;
+    ctx.beginPath();
+    ctx.arc(lensX, lensY, lensR, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. Central Optical Micro-Glint (Focal Catchlight - NO outline)
+    const glintAlpha = (0.25 + 0.35 * Math.sin(this.time * 0.08)) * intensity;
+    ctx.fillStyle = `rgba(255, 255, 255, ${glintAlpha.toFixed(3)})`;
+    ctx.beginPath();
+    ctx.arc(lensX, lensY, 1.4 * intensity, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  /**
+   * Main Animation Loop (60-120fps)
+   */
+  animate() {
+    if (this.isInViewport) {
+      this.time += 1.0;
+
+      // 1. Process Continuous Space Warp Zoom across all 4 phases
+      this.updateSpaceZoom();
+
+      // 2. Smooth lerp camera angles (mouse parallax)
+      this.camRotX += (this.targetCamRotX - this.camRotX) * 0.07;
+      this.camRotY += (this.targetCamRotY - this.camRotY) * 0.07;
+
+      const centerX = this.stageWidth / 2;
+      const centerY = this.stageHeight / 2;
+
+      // Performance: skip heavy node/canvas work when layer is fully hidden (e.g. Landing Page)
+      const techVisible = this.zoomProgress > 0.08 && this.zoomProgress < 0.52;
+
+      // 3. Update Monumental 3D Center Text Parallax (Tech Stack)
+      if (this.centerText && techVisible) {
+        const textPitch = -this.camRotX * 18;
+        const textYaw = this.camRotY * 24;
+
+        if (this.zoomProgress >= 0.35) {
+          // Monumental title pulls forward into the glass lens and dissolves
+          const textWarpP = Math.min(1.0, (this.zoomProgress - 0.35) / 0.10);
+          const textScale = 1.0 + textWarpP * 2.5;
+          const textZ = textWarpP * 400;
+          const textOpacity = Math.max(0, 1.0 - textWarpP * 1.5);
+          const textBlur = textWarpP * 14;
+
+          this.centerText.style.transform = `perspective(900px) rotateX(${textPitch.toFixed(2)}deg) rotateY(${textYaw.toFixed(2)}deg) translateZ(${textZ.toFixed(1)}px) scale(${textScale.toFixed(3)})`;
+          this.centerText.style.opacity = textOpacity.toFixed(3);
+          this.centerText.style.filter = textBlur > 0.4 ? `blur(${textBlur.toFixed(1)}px)` : 'none';
+        } else {
+          this.centerText.style.transform = `perspective(900px) rotateX(${textPitch.toFixed(2)}deg) rotateY(${textYaw.toFixed(2)}deg) translateZ(0)`;
+          this.centerText.style.opacity = '1';
+          this.centerText.style.filter = 'none';
+        }
+      }
+
+      // 4. Update Planetary Tech Nodes in 3D Orbits
+      if (techVisible) {
+        let minMouseDist = 9999;
+        if (this.pointerClientX > -1000 && this.pointerClientY > -1000) {
+          const distToCenter = Math.hypot(this.pointerClientX - centerX, this.pointerClientY - centerY);
+
+          for (let i = 0; i < this.nodes.length; i++) {
+            const n = this.nodes[i];
+            const nx = centerX + n.projX;
+            const ny = centerY + n.projY;
+            const d = Math.hypot(this.pointerClientX - nx, this.pointerClientY - ny);
+            if (d < minMouseDist) minMouseDist = d;
+          }
+
+          const nodeProximity = Math.max(0, Math.min(1, (minMouseDist - 25) / 200));
+          const centerProximity = Math.max(0, Math.min(1, (distToCenter - 60) / 400));
+          const proximity = Math.min(nodeProximity, centerProximity);
+
+          this.targetOrbitDilation = 0.15 + 0.85 * Math.pow(proximity, 1.5);
+
+          if (this.hoveredNode) {
+            this.targetOrbitDilation = 0.08;
+          }
+        } else {
+          this.targetOrbitDilation = 1.0;
+        }
+
+        this.orbitDilation += (this.targetOrbitDilation - this.orbitDilation) * 0.08;
+
+        this.nodes.forEach(node => {
+          const ring = node.ring;
+
+          const baseNodeSpeed = (node.meta.id === this.hoveredNode?.id)
+            ? ring.baseSpeed * 0.08
+            : ring.baseSpeed * this.orbitDilation;
+
+          node.theta += baseNodeSpeed;
+
+          const a = ring.baseRadiusX * this.scaleRatio;
+          const b = ring.baseRadiusY * this.scaleRatio;
+
+          const x0 = a * Math.cos(node.theta);
+          const y0 = b * Math.sin(node.theta);
+
+          const wobbleAmp = (ring.wobbleAmp * 0.5) * this.scaleRatio;
+          const z0 = wobbleAmp * Math.sin(2 * node.theta + this.time * 0.015);
+
+          const proj = this.project3D(x0, y0, z0, ring, this.camRotX, this.camRotY);
+
+          node.projX = proj.screenX;
+          node.projY = proj.screenY;
+          node.projZ = proj.depthZ;
+
+          const isFront = proj.depthZ >= 0;
+          node.isFront = isFront;
+
+          let zIndex = 50;
+          let opacity = 1.0;
+          let scale = proj.scale;
+          let blurPx = 0;
+          let brightness = 1.0;
+
+          if (isFront) {
+            zIndex = Math.max(52, Math.min(99, Math.round(55 + node.projZ / 12)));
+            scale = proj.scale * 1.15;
+            opacity = 1.0;
+            blurPx = 0;
+            brightness = 1.06;
+
+            node.el.classList.add('is-front');
+            node.el.classList.remove('is-behind');
+          } else {
+            zIndex = Math.max(1, Math.min(48, Math.round(25 + node.projZ / 18)));
+            scale = proj.scale * 0.78;
+            opacity = Math.max(0.42, Math.min(0.85, 0.75 + node.projZ / 700));
+            blurPx = Math.min(3.0, Math.abs(node.projZ) / 180);
+            brightness = Math.max(0.60, 0.9 + node.projZ / 800);
+
+            node.el.classList.add('is-behind');
+            node.el.classList.remove('is-front');
+          }
+
+          const screenPosX = centerX + proj.screenX;
+          const screenPosY = centerY + proj.screenY;
+          const transformStr = `translate3d(${screenPosX.toFixed(1)}px, ${screenPosY.toFixed(1)}px, 0) translate(-50%, -50%) scale(${scale.toFixed(3)})`;
+
+          node.el.style.zIndex = zIndex;
+          node.el.style.opacity = opacity.toFixed(3);
+          node.el.style.transform = transformStr;
+          node.el.style.filter = blurPx > 0.4 ? `blur(${blurPx.toFixed(1)}px) brightness(${brightness.toFixed(2)})` : `brightness(${brightness.toFixed(2)})`;
+        });
+      }
+
+      // 5. Draw Canvas Background (Wormhole, Rings & Stars) only when needed
+      if (techVisible || (this.warpSpeed > 0.1 && this.zoomProgress > 0.04)) {
+        this.renderCanvas(this.camRotX, this.camRotY);
+        this.wasCanvasDrawn = true;
+      } else if (this.ctx && this.wasCanvasDrawn) {
+        // Clear canvas once when exiting view to free GPU memory
+        this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+        this.wasCanvasDrawn = false;
+      }
+
+      // 8. Update Near-Pointer Tooltip
+      this.updateTooltipPosition();
+    }
+
+    requestAnimationFrame(this.animate);
+  }
+}
+
+/**
+ * Bootstrap the Tech Solar System once DOM is ready
+ */
+export function initTechSolarSystem() {
+  const stage = document.getElementById('solar-stage');
+  if (stage) {
+    return new TechSolarSystem();
+  }
+  return null;
+}
