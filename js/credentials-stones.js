@@ -195,11 +195,11 @@ export class CredentialsMobiusEngine {
     this.isInViewport  = true;
     this.isTriggered   = false;
 
-    // ── 3D Circular Orbit Geometry (Viewed at an isometric perspective angle) ──
-    this.orbitRadiusX   = 530;   // Wide horizontal radius in 3D space
-    this.orbitRadiusZ   = 290;   // Deep Z distance into space
-    this.orbitPitchDeg  = 26.0;  // Isometric camera elevation pitch angle (~26°)
-    this.orbitYawDeg    = -6.0;  // Subtle artistic yaw tilt
+    // ── 3D Circular Belt Geometry (True Top-Down Angle View) ──
+    this.orbitRadiusX   = 440;   // Circular belt radius in X (calibrated for full viewport clearance)
+    this.orbitRadiusZ   = 240;   // Circular belt radius in Z
+    this.orbitPitchDeg  = -24.0; // Top-angle elevated camera view looking down onto the belt (-24°)
+    this.orbitYawDeg    = 0.0;   // Clean horizontal belt alignment
 
     // ── Dynamics & Momentum ──
     this.autoAngle      = 0;
@@ -207,7 +207,7 @@ export class CredentialsMobiusEngine {
     this.dragVelocity   = 0;
     this.isDragging     = false;
     this.touchStartX    = 0;
-    this.baseSpeed      = 0.0032; // Natural celestial speed
+    this.baseSpeed      = 0.0030; // Smooth cybernetic conveyor speed
 
     // ── Time-Dilation (Speed Control) ──
     this.speedFactor       = 1.0;
@@ -268,7 +268,7 @@ export class CredentialsMobiusEngine {
         <!-- Navigation HUD -->
         <div class="stage-nav-hud">
           <button id="cred-return-projects-btn" class="stage-nav-btn font-mono" title="Return to flagship projects">⤾ RETURN TO PROJECTS</button>
-          <a href="#contact" class="stage-nav-btn font-mono text-lime" id="cred-to-contact-btn" title="Proceed to Contact">INITIATE CONTACT PROTOCOL ↓</a>
+          <button id="cred-to-contact-btn" class="stage-nav-btn font-mono text-lime" title="Zoom warp to Contact">WARP TO TRANSMISSION MATRIX ↯</button>
         </div>
       </div>
 
@@ -328,10 +328,11 @@ export class CredentialsMobiusEngine {
     if (contactBtn) {
       contactBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        const cs = document.getElementById('contact');
-        if (cs) {
-          if (window.AppState?.lenis) window.AppState.lenis.scrollTo(cs, { duration: 1.8 });
-          else cs.scrollIntoView({ behavior: 'smooth' });
+        if (window.AppState?.techSolar) {
+          window.AppState.techSolar.triggerContactZoom();
+        } else {
+          const cs = document.getElementById('contact');
+          if (cs) cs.scrollIntoView({ behavior: 'smooth' });
         }
       });
     }
@@ -364,7 +365,7 @@ export class CredentialsMobiusEngine {
       // Render actual certificate logos
       const logosHTML = cert.logos.map(k => renderCertificateLogo(k)).join('');
 
-      el.innerHTML = `
+      const cardContent = `
         <div class="orbit3d-card-inner">
           <!-- Top Row: Authentic Analyzed Logos + Verified Status Pill -->
           <div class="orbit3d-card-top">
@@ -394,7 +395,7 @@ export class CredentialsMobiusEngine {
               </div>
             </div>
 
-            <!-- Right: Golden Rosette Seal Stamp (Matches reference image) -->
+            <!-- Right: Golden Rosette Seal Stamp -->
             <div class="orbit3d-rosette-wrap" title="Verified Credential Seal">
               <svg class="rosette-svg" viewBox="0 0 36 36" fill="none" aria-hidden="true" style="color: ${cert.accent};">
                 <circle cx="18" cy="18" r="16" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.5 2" opacity="0.6"/>
@@ -416,6 +417,12 @@ export class CredentialsMobiusEngine {
             <span>CLICK TO REVEAL FULL CERTIFICATE ↗</span>
           </div>
         </div>
+      `;
+
+      // Two-sided card with identical content on both faces (no flip needed when orbiting to back)
+      el.innerHTML = `
+        <div class="orbit3d-card-face orbit3d-card-front">${cardContent}</div>
+        <div class="orbit3d-card-face orbit3d-card-back">${cardContent}</div>
       `;
 
       const basePhase = (index / total) * Math.PI * 2;
@@ -489,6 +496,15 @@ export class CredentialsMobiusEngine {
       if (this.isDragging) moveDrag(e.clientX);
     }, { passive: true });
     window.addEventListener('mouseup', endDrag, { passive: true });
+
+    // Enable mouse wheel scrolling on the stage to drive zoom in / zoom out
+    this.stage.addEventListener('wheel', (e) => {
+      if (window.AppState?.lenis) {
+        window.AppState.lenis.scrollTo(window.scrollY + e.deltaY * 1.4, { immediate: true });
+      } else {
+        window.scrollBy({ top: e.deltaY * 1.4, behavior: 'auto' });
+      }
+    }, { passive: true });
   }
 
   setupIntersectionObserver() {
@@ -527,21 +543,21 @@ export class CredentialsMobiusEngine {
     const w = window.innerWidth;
 
     if (w < 480) {
-      this.orbitRadiusX  = 230;
-      this.orbitRadiusZ  = 145;
-      this.orbitPitchDeg = 24.0;
+      this.orbitRadiusX  = 200;
+      this.orbitRadiusZ  = 120;
+      this.orbitPitchDeg = -24.0;
     } else if (w < 768) {
-      this.orbitRadiusX  = 340;
-      this.orbitRadiusZ  = 195;
-      this.orbitPitchDeg = 25.0;
+      this.orbitRadiusX  = 290;
+      this.orbitRadiusZ  = 160;
+      this.orbitPitchDeg = -24.0;
     } else if (w < 1200) {
-      this.orbitRadiusX  = 460;
-      this.orbitRadiusZ  = 250;
-      this.orbitPitchDeg = 26.0;
+      this.orbitRadiusX  = 380;
+      this.orbitRadiusZ  = 200;
+      this.orbitPitchDeg = -24.0;
     } else {
-      this.orbitRadiusX  = 540;
-      this.orbitRadiusZ  = 295;
-      this.orbitPitchDeg = 27.0;
+      this.orbitRadiusX  = 440;
+      this.orbitRadiusZ  = 240;
+      this.orbitPitchDeg = -24.0;
     }
   }
 
@@ -562,7 +578,7 @@ export class CredentialsMobiusEngine {
       (layer.style.opacity !== '' && parseFloat(layer.style.opacity) < 0.02)
     );
     const p = window.AppState?.techSolar?.zoomProgress ?? 0;
-    const isAway = (p > 0 && p < 0.60);
+    const isAway = (p > 0 && p < 0.58);
 
     if (document.hidden || isLayerHidden || isAway || !this.isInViewport) {
       this.animId = requestAnimationFrame(this.animate);
@@ -583,10 +599,21 @@ export class CredentialsMobiusEngine {
     this.camTiltX += (this.targetCamTiltX - this.camTiltX) * 0.06;
     this.camTiltY += (this.targetCamTiltY - this.camTiltY) * 0.06;
 
-    // Apply isometric angle tilt to the stage ring
+    // ── Continuous Scroll-Driven 3D Zoom ──
+    const zoomP = window.AppState?.techSolar?.zoomProgress ?? 0.74;
+    let scrollScale = 1.0;
+    if (zoomP >= 0.58 && zoomP <= 0.82) {
+      const pNorm = (zoomP - 0.58) / 0.24;
+      scrollScale = 0.90 + pNorm * 0.20;
+    } else if (zoomP > 0.82 && zoomP <= 0.94) {
+      const exitNorm = (zoomP - 0.82) / 0.12;
+      scrollScale = 1.10 + exitNorm * 0.8;
+    }
+
+    // Apply top-down isometric angle tilt and scroll zoom to the stage ring
     const totalPitch = this.orbitPitchDeg + this.camTiltX;
     const totalYaw   = this.orbitYawDeg   + this.camTiltY;
-    this.orbitRing.style.transform = `rotateX(${totalPitch.toFixed(2)}deg) rotateY(${totalYaw.toFixed(2)}deg)`;
+    this.orbitRing.style.transform = `rotateX(${totalPitch.toFixed(2)}deg) rotateY(${totalYaw.toFixed(2)}deg) scale(${scrollScale.toFixed(3)})`;
 
     // ── Rotation Lerping & Inertia ──
     this.speedFactor += (this.targetSpeedFactor - this.speedFactor) * 0.08;
@@ -603,7 +630,7 @@ export class CredentialsMobiusEngine {
     let closestCard = null;
     let maxZ = -Infinity;
 
-    // ── 3D Circular Orbit Geometry (Not Tidally Locked) ──
+    // ── 3D Circular Belt Geometry (Viewed from Top Angle) ──
     this.cards.forEach((card) => {
       const angle = card.theta + totalAngle;
 
@@ -613,23 +640,15 @@ export class CredentialsMobiusEngine {
       // Positions on circular 3D plane
       const x = sinA * this.orbitRadiusX;
       const z = cosA * this.orbitRadiusZ;
+      const y = 0; // Pure level circular belt viewed from top angle
 
-      // Vertical stadium contour: front is lower, back is higher
-      const y = -cosA * (this.orbitRadiusZ * 0.22);
-
-      // NON-TIDALLY LOCKED:
-      // Cards stand upright along the curve of the circle and turn with the circle's curvature!
-      // In front (sinA ≈ 0): card faces forward toward the camera.
-      // On sides (sinA ≈ ±1): card angles sharply inward following the ring curve.
-      // In back (cosA ≈ -1): card curves around the far perimeter.
-      const rotY = -sinA * 64;
-      const rotX = -cosA * 14;
+      // Naturally rotate with respect to position and centre (tangent/radial to circle):
+      const rotY = (angle * (180 / Math.PI));
 
       card.x    = x;
       card.y    = y;
       card.z    = z;
       card.rotY = rotY;
-      card.rotX = rotX;
 
       if (z > maxZ) {
         maxZ = z;
@@ -637,42 +656,29 @@ export class CredentialsMobiusEngine {
       }
     });
 
-    // ── Render 3D Cards with Far-Side Depth-Of-Field Blur ──
+    // ── Render 3D Smoked Glass Cards (Double-sided with Identical Content) ──
     this.cards.forEach((card) => {
       const z = card.z;
-
-      // Depth normalization: 0 (far-side back) to 1 (front spotlight)
       const depthNorm = (z + this.orbitRadiusZ) / (2 * this.orbitRadiusZ);
 
       const isHovered = (this.hoveredCard === card);
-      const isFront   = (card === closestCard && depthNorm > 0.88);
+      const isFront   = (card === closestCard && depthNorm > 0.82);
 
-      // Scale: 0.62 in far back → 1.18 in front spotlight
-      const baseScale  = 0.62 + depthNorm * 0.54;
-      const finalScale = isHovered ? baseScale * 1.15 : baseScale;
+      const baseScale  = 0.88 + depthNorm * 0.18;
+      const finalScale = isHovered ? baseScale * 1.10 : (isFront ? baseScale * 1.04 : baseScale);
 
-      // Opacity: 0.22 far back → 1.0 front
-      const opacity = isHovered ? 1.0 : (0.22 + Math.pow(depthNorm, 1.4) * 0.78);
+      // Back cards have high opacity so they remain crisp and visible
+      const opacity = isHovered ? 1.0 : (0.84 + depthNorm * 0.16);
+      const zIndex  = isHovered ? 999 : Math.round(10 + depthNorm * 90);
 
-      // Z-Index layering
-      const zIndex = isHovered ? 999 : Math.round(10 + depthNorm * 90);
-
-      // FAR-SIDE BLURRED AWAY:
-      // Cards on the far side (depthNorm < 0.45) receive heavy atmospheric depth-of-field blur!
-      let blurPx = 0;
-      if (!isHovered && depthNorm < 0.45) {
-        blurPx = ((0.45 - depthNorm) * 20).toFixed(1);
-      }
-
-      // Electric-lime glowing spotlight on the front active card
+      // Front card indicator (liquid glass highlight)
       if (isFront) card.el.classList.add('is-front');
       else card.el.classList.remove('is-front');
 
-      // 3D Matrix Transform
-      card.el.style.transform = `translate3d(${card.x.toFixed(1)}px, ${card.y.toFixed(1)}px, ${card.z.toFixed(1)}px) rotateY(${card.rotY.toFixed(1)}deg) rotateX(${card.rotX.toFixed(1)}deg) scale(${finalScale.toFixed(3)})`;
+      card.el.style.transform = `translate3d(${card.x.toFixed(1)}px, ${card.y.toFixed(1)}px, ${card.z.toFixed(1)}px) rotateY(${card.rotY.toFixed(1)}deg) scale(${finalScale.toFixed(3)})`;
       card.el.style.zIndex    = zIndex;
       card.el.style.opacity   = opacity.toFixed(3);
-      card.el.style.filter    = blurPx > 0 ? `blur(${blurPx}px)` : 'none';
+      card.el.style.filter    = 'none';
     });
 
     this.animId = requestAnimationFrame(this.animate);
