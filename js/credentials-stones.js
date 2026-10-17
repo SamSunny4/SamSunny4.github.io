@@ -1,35 +1,19 @@
 /**
- * 3D CYLINDRICAL CREDENTIALS MATRIX ENGINE (WebGL / Three.js)
+ * CREDENTIALS MATRIX ENGINE — LIQUID GLASS RING EDITION
  * -----------------------------------------------------------
- * True curved cylindrical drum carousel matching reference mockup:
- *   - Continuous 3D CylinderGeometry with physically curved card meshes
- *   - 4-5 cards visible across the front arc with authentic curvature
- *   - Illuminated warm amber top rail with 40 glowing stardust beads
- *   - Illuminated cool cyan bottom rail with 40 glowing stardust beads
- *   - Smoked glass cylindrical drum ribbon
- *   - Dark glossy studio mirror floor reflections
- *   - Interactive drag-to-spin, momentum physics, hover time-dilation & lightbox
+ * Redesigned to match the liquid glass circular ring aesthetic:
+ *   - Compact dark glassmorphic cards with glowing liquid borders
+ *   - Full visible ring of cards with dramatic depth receding
+ *   - Bold monumental titles, issuer logo pills, credential IDs
+ *   - Active card gets vivid accent glow border
+ *   - Interactive drag-to-spin with momentum physics & inertia
+ *   - Real-time preset switching & click-to-inspect lightbox
  */
+
+import { CircularCarousel, PRESETS } from './circular-carousel.js';
 
 // ── Verified Certificates with Authentic Analyzed Logos & Telemetry ──
 export const CERTIFICATES = [
-  {
-    id: 'energya-hackathon',
-    title: 'Eneryia Hackathon Finalist',
-    subtitle: 'SHRESHTA \'25 TECHNO-CULTURAL CONCLAVE',
-    org: 'MITS Kochi · NBA Accredited',
-    issuerTag: 'Muthoot Group · Indivara',
-    code: 'ENR-HACK-2025-V7',
-    date: 'FEB 15, 2025',
-    accent: '#FF9900',
-    badge: '⚡ ENERGYA',
-    score: 'Active Participant',
-    image: 'assets/certificates/Eneryahackathon.png',
-    logos: [
-      { name: 'mits', label: 'MITS' },
-      { name: 'nba', label: 'NBA' }
-    ]
-  },
   {
     id: 'nptel-ml',
     title: 'Machine Learning (Elite 92%)',
@@ -42,8 +26,9 @@ export const CERTIFICATES = [
     badge: '🥇 TOP 2% · 92%',
     score: 'Score: 92% (Top 2% Topper)',
     image: 'assets/certificates/Nptelmachinelearning.png',
+    pills: ['IIT Kharagpur', 'SWAYAM'],
     logos: [
-      { name: 'iit-kharagpur', label: 'IIT Kharagpur' },
+      { name: 'iit-kharagpur', label: 'IIT KGP' },
       { name: 'nptel', label: 'NPTEL' },
       { name: 'swayam', label: 'SWAYAM' }
     ]
@@ -60,10 +45,11 @@ export const CERTIFICATES = [
     badge: '🛠️ FULL-STACK',
     score: 'Course Complete',
     image: 'assets/certificates/mernstack.jpg',
+    pills: ['React.js', 'Node.js'],
     logos: [
-      { name: 'zeropixels', label: 'Zero Pixels' },
       { name: 'react', label: 'React' },
-      { name: 'nodejs', label: 'Node.js' }
+      { name: 'nodejs', label: 'Node.js' },
+      { name: 'zeropixels', label: 'Zero Pixels' }
     ]
   },
   {
@@ -78,10 +64,11 @@ export const CERTIFICATES = [
     badge: '📜 ELITE 73%',
     score: 'Score: 73% (Elite)',
     image: 'assets/certificates/nptel.png',
+    pills: ['Python', 'IIT Madras'],
     logos: [
+      { name: 'python', label: 'Python' },
       { name: 'iit-madras', label: 'IIT Madras' },
-      { name: 'nptel', label: 'NPTEL' },
-      { name: 'swayam', label: 'SWAYAM' }
+      { name: 'nptel', label: 'NPTEL' }
     ]
   },
   {
@@ -96,10 +83,11 @@ export const CERTIFICATES = [
     badge: '🥈 2ND PLACE',
     score: 'National Second',
     image: 'assets/certificates/nationalhackathon.jpg',
+    pills: ['AI Samasya', 'Team Beyond Vision'],
     logos: [
       { name: 'edu-ai', label: 'edu@ai 3.0' },
-      { name: 'ihrd', label: 'IHRD Kerala' },
-      { name: 'mits', label: 'MITS' }
+      { name: 'mits', label: 'MITS' },
+      { name: 'ihrd', label: 'IHRD Kerala' }
     ]
   },
   {
@@ -114,9 +102,28 @@ export const CERTIFICATES = [
     badge: '🚀 ISRO',
     score: 'Verified Participant',
     image: 'assets/certificates/isrohackathon.png',
+    pills: ['ISRO', 'Hack2Skill'],
     logos: [
       { name: 'isro', label: 'ISRO' },
       { name: 'hack2skill', label: 'Hack2Skill' }
+    ]
+  },
+  {
+    id: 'energya-hackathon',
+    title: 'Eneryia Hackathon Finalist',
+    subtitle: 'SHRESHTA \'25 TECHNO-CULTURAL CONCLAVE',
+    org: 'MITS Kochi · NBA Accredited',
+    issuerTag: 'Muthoot Group · Indivara',
+    code: 'ENR-HACK-2025-V7',
+    date: 'FEB 15, 2025',
+    accent: '#FF9900',
+    badge: '⚡ ENERGYA',
+    score: 'Active Participant',
+    image: 'assets/certificates/Eneryahackathon.png',
+    pills: ['MITS Kochi', 'Finalist'],
+    logos: [
+      { name: 'mits', label: 'MITS' },
+      { name: 'nba', label: 'NBA' }
     ]
   },
   {
@@ -131,9 +138,10 @@ export const CERTIFICATES = [
     badge: '🎓 LEADERSHIP',
     score: 'Appreciation Award',
     image: 'assets/certificates/programrep.jpg',
+    pills: ['College Union', 'CS(AI)'],
     logos: [
       { name: 'mits', label: 'MITS' },
-      { name: 'union', label: 'College Union' }
+      { name: 'union', label: 'Union' }
     ]
   },
   {
@@ -148,6 +156,7 @@ export const CERTIFICATES = [
     badge: '🏭 INDUSTRY',
     score: 'Participation Award',
     image: 'assets/certificates/industryvisit.jpeg',
+    pills: ['MariApps', 'SmartCity'],
     logos: [
       { name: 'mariapps', label: 'MariApps' },
       { name: 'mits', label: 'MITS' }
@@ -164,14 +173,16 @@ export const CERTIFICATES = [
     accent: '#22C55E',
     badge: '🌐 CAMBRIDGE',
     score: 'C1/B2 Proficient',
-    image: 'assets/certificates/liguaskill.PDF',
+    image: 'assets/certificates/liguaskill.png',
+    pdfUrl: 'assets/certificates/liguaskill.PDF',
+    pills: ['Cambridge', 'C1 / B2 English'],
     logos: [
       { name: 'cambridge', label: 'Cambridge' }
     ]
-  },
+  }
 ];
 
-// Cache for preloaded SVG brand logos
+// Preloaded brand logo cache
 const LOGO_CACHE = new Map();
 
 function preloadLogo(logoName) {
@@ -183,101 +194,413 @@ function preloadLogo(logoName) {
   return img;
 }
 
-// Preload all logos
+// Immediately initiate logo preloading
 CERTIFICATES.forEach(cert => {
   cert.logos.forEach(l => preloadLogo(l.name));
 });
+
+/**
+ * Generates a liquid glass credential card canvas matching the reference aesthetic:
+ *   - Dark smoky frosted glass background with subtle specular top edge reflection
+ *   - Clean brand logos on the top left
+ *   - Monumental white typography for the title (2 lines max)
+ *   - Bottom-left verified hexagonal badge emblem with date/score
+ *   - Center pill badges with tech / organization tags
+ *   - Clean monospace CREDENTIAL ID
+ *   - Bottom-right golden/accent rosette ribbon award seal
+ */
+export function generateCredentialCardCanvas(cert, isActive = false) {
+  const canvas = document.createElement('canvas');
+  const w = 640;
+  const h = 400;
+  const dpr = 2; // High-DPI Retina sharpness
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const pad = 4;
+  const bX = pad;
+  const bY = pad;
+  const bW = w - pad * 2;
+  const bH = h - pad * 2;
+  const bR = 22;
+
+  // 1. Clip card body with rounded corners
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(bX, bY, bW, bH, bR);
+  ctx.clip();
+
+  // Multi-stop translucent liquid glass gradient with dark obsidian/emerald undertones
+  const bgGrad = ctx.createLinearGradient(bX, bY, bX + bW * 0.8, bY + bH);
+  bgGrad.addColorStop(0, 'rgba(25, 33, 44, 0.88)');
+  bgGrad.addColorStop(0.35, 'rgba(15, 21, 28, 0.92)');
+  bgGrad.addColorStop(0.7, 'rgba(10, 14, 18, 0.95)');
+  bgGrad.addColorStop(1, 'rgba(6, 9, 12, 0.98)');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(bX, bY, bW, bH);
+
+  // Fine liquid frosted glass noise
+  ctx.globalAlpha = 0.028;
+  for (let i = 0; i < 300; i++) {
+    ctx.fillStyle = Math.random() > 0.5 ? '#FFFFFF' : '#000000';
+    ctx.fillRect(
+      bX + Math.random() * bW,
+      bY + Math.random() * bH,
+      Math.random() * 2 + 0.5,
+      Math.random() * 2 + 0.5
+    );
+  }
+  ctx.globalAlpha = 1;
+
+  // Glass refractive diagonal wash (liquid light prism)
+  const prismSweep = ctx.createLinearGradient(bX, bY, bX + bW * 0.9, bY + bH * 0.85);
+  prismSweep.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+  prismSweep.addColorStop(0.22, 'rgba(255, 255, 255, 0.045)');
+  prismSweep.addColorStop(0.5, 'rgba(255, 255, 255, 0.01)');
+  prismSweep.addColorStop(0.78, 'rgba(255, 255, 255, 0.035)');
+  prismSweep.addColorStop(1, 'transparent');
+  ctx.fillStyle = prismSweep;
+  ctx.fillRect(bX, bY, bW, bH);
+
+  // Specular top-left glass reflection sheen (liquid bubble bloom)
+  const bloom = ctx.createRadialGradient(bX + 90, bY + 45, 10, bX + 130, bY + 75, 340);
+  bloom.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
+  bloom.addColorStop(0.4, 'rgba(255, 255, 255, 0.035)');
+  bloom.addColorStop(1, 'transparent');
+  ctx.fillStyle = bloom;
+  ctx.fillRect(bX, bY, bW, bH);
+
+  // Curved liquid light sweep (like reflection on a curved watch crystal / curved screen)
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(bX + bW * 0.38, bY - 30, bW * 0.62, bH * 0.58, -0.18, 0, Math.PI * 2);
+  const curvedGlow = ctx.createLinearGradient(bX, bY, bX + bW * 0.6, bY + bH * 0.5);
+  curvedGlow.addColorStop(0, 'rgba(255, 255, 255, 0.09)');
+  curvedGlow.addColorStop(0.6, 'rgba(255, 255, 255, 0.015)');
+  curvedGlow.addColorStop(1, 'transparent');
+  ctx.fillStyle = curvedGlow;
+  ctx.fill();
+  ctx.restore();
+
+  // Inner liquid glass bezel rim (subtle bevel reflection)
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(bX + 1.2, bY + 1.2, bW - 2.4, bH - 2.4, bR - 1);
+  const rimGrad = ctx.createLinearGradient(bX, bY, bX + bW * 0.65, bY + bH);
+  rimGrad.addColorStop(0, 'rgba(255, 255, 255, 0.42)');
+  rimGrad.addColorStop(0.28, 'rgba(255, 255, 255, 0.16)');
+  rimGrad.addColorStop(0.6, 'rgba(255, 255, 255, 0.03)');
+  rimGrad.addColorStop(1, 'transparent');
+  ctx.strokeStyle = rimGrad;
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+  ctx.restore();
+
+  // If active card, luminous internal liquid lime aura wash
+  if (isActive) {
+    const greenWash = ctx.createRadialGradient(bX + bW * 0.5, bY + bH * 0.42, 25, bX + bW * 0.5, bY + bH * 0.42, bW * 0.58);
+    greenWash.addColorStop(0, 'rgba(163, 230, 53, 0.11)');
+    greenWash.addColorStop(0.45, 'rgba(163, 230, 53, 0.04)');
+    greenWash.addColorStop(1, 'transparent');
+    ctx.fillStyle = greenWash;
+    ctx.fillRect(bX, bY, bW, bH);
+  }
+
+  ctx.restore();
+
+  // 2. TOP ROW: Brand Logos
+  let curX = 38;
+  const topY = 32;
+  const maxLogoH = 34;
+
+  cert.logos.forEach(logo => {
+    const cachedImg = LOGO_CACHE.get(logo.name);
+    const hasImage = cachedImg && cachedImg.complete && cachedImg.naturalWidth > 0;
+
+    if (hasImage) {
+      const imgAspect = cachedImg.naturalWidth / cachedImg.naturalHeight;
+      const drawH = maxLogoH;
+      const drawW = Math.min(drawH * imgAspect, 80);
+
+      ctx.save();
+      ctx.drawImage(cachedImg, curX, topY + (maxLogoH - drawH) / 2, drawW, drawH);
+      ctx.restore();
+      curX += drawW + 16;
+    } else {
+      ctx.save();
+      ctx.font = 'bold 12px -apple-system, sans-serif';
+      const textW = ctx.measureText(logo.label || logo.name).width;
+      const pillW = textW + 22;
+      ctx.beginPath();
+      ctx.roundRect(curX, topY + 2, pillW, 28, 8);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(logo.label || logo.name, curX + pillW / 2, topY + 16);
+      ctx.restore();
+      curX += pillW + 12;
+    }
+  });
+
+  // 3. TITLE: Big Bold Modern White Typography (Matching Image 2)
+  ctx.save();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '800 32px "Syne", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+
+  const titleX = 38;
+  const titleY = 105;
+  const maxTitleW = 560;
+
+  let words = cert.title.split(' ');
+  let line1 = '';
+  let line2 = '';
+
+  for (let i = 0; i < words.length; i++) {
+    let test = line1 ? line1 + ' ' + words[i] : words[i];
+    if (ctx.measureText(test).width <= maxTitleW && !line2) {
+      if (words.length > 3 && i >= Math.ceil(words.length / 2)) {
+        line1 = line1 || test;
+        line2 = words.slice(i).join(' ');
+        break;
+      } else {
+        line1 = test;
+      }
+    } else {
+      line2 = words.slice(i).join(' ');
+      break;
+    }
+  }
+
+  ctx.fillText(line1, titleX, titleY);
+  if (line2) {
+    ctx.fillText(line2, titleX, titleY + 40);
+  }
+  ctx.restore();
+
+  // 4. BOTTOM LEFT: Hexagonal / Shield Credential Badge
+  ctx.save();
+  const badgeX = 38;
+  const badgeY = 248;
+  const badgeW = 68;
+  const badgeH = 74;
+
+  // Draw sleek hexagonal shield
+  const bx = badgeX + badgeW / 2;
+  const by = badgeY + badgeH / 2;
+  const br = 32;
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const angle = ((i * 60 - 30) * Math.PI) / 180;
+    const px = bx + br * Math.cos(angle);
+    const py = by + br * Math.sin(angle);
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+
+  // Badge fill with subtle accent glow
+  const accentHex = cert.accent || '#D2FF00';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+  ctx.fill();
+  ctx.strokeStyle = accentHex + 'aa';
+  ctx.lineWidth = 1.8;
+  ctx.stroke();
+
+  // Inner emblem ring inside badge
+  ctx.beginPath();
+  ctx.arc(bx, by - 6, 11, 0, Math.PI * 2);
+  ctx.strokeStyle = accentHex;
+  ctx.lineWidth = 1.4;
+  ctx.stroke();
+
+  // Center checkmark inside emblem
+  ctx.beginPath();
+  ctx.moveTo(bx - 5, by - 6);
+  ctx.lineTo(bx - 1, by - 2);
+  ctx.lineTo(bx + 5, by - 8);
+  ctx.strokeStyle = '#FFFFFF';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // Date or label below emblem inside badge
+  ctx.font = 'bold 10px monospace';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const badgeLabel = cert.date.length > 8 ? cert.date.slice(0, 8) : cert.date;
+  ctx.fillText(badgeLabel, bx, by + 16);
+  ctx.restore();
+
+  // 5. BOTTOM ROW: Glassy Pill Badges
+  ctx.save();
+  const pillStartX = 126;
+  let pillX = pillStartX;
+  const pillY = 260;
+  const pills = cert.pills || [cert.org.split(' ')[0], cert.badge.replace(/[^\w\s%]/g, '').trim()];
+
+  pills.forEach(pillText => {
+    ctx.font = 'bold 13px -apple-system, sans-serif';
+    const textW = ctx.measureText(pillText).width;
+    const pW = textW + 28;
+    const pH = 32;
+
+    ctx.beginPath();
+    ctx.roundRect(pillX, pillY, pW, pH, 16);
+
+    const pillGrad = ctx.createLinearGradient(pillX, pillY, pillX, pillY + pH);
+    pillGrad.addColorStop(0, 'rgba(255, 255, 255, 0.14)');
+    pillGrad.addColorStop(1, 'rgba(255, 255, 255, 0.04)');
+    ctx.fillStyle = pillGrad;
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.26)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(pillX + 10, pillY + 1);
+    ctx.lineTo(pillX + pW - 10, pillY + 1);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(pillText, pillX + pW / 2, pillY + pH / 2);
+
+    pillX += pW + 12;
+  });
+  ctx.restore();
+
+  // 6. BORDER & LIQUID GLASS EDGES (Subpixel Anti-Aliased on High-DPI Retina Canvas)
+  if (isActive) {
+    // A. Soft outer liquid neon halo
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(bX, bY, bW, bH, bR);
+    ctx.strokeStyle = 'rgba(163, 230, 53, 0.42)';
+    ctx.lineWidth = 6;
+    ctx.stroke();
+    ctx.restore();
+
+    // B. Radiant primary neon lime line
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(bX, bY, bW, bH, bR);
+    ctx.strokeStyle = '#a3e635';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.restore();
+
+    // C. Inner specular liquid core rim
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(bX + 1, bY + 1, bW - 2, bH - 2, bR - 1);
+    ctx.strokeStyle = 'rgba(217, 249, 157, 0.85)';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.restore();
+
+    // D. Glassy top specular highlight across active neon border
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(bX + bR, bY);
+    ctx.lineTo(bX + bW - bR, bY);
+    const limeGlassSheen = ctx.createLinearGradient(bX + bR, bY, bX + bW - bR, bY);
+    limeGlassSheen.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
+    limeGlassSheen.addColorStop(0.35, 'rgba(217, 249, 157, 0.9)');
+    limeGlassSheen.addColorStop(1, 'rgba(163, 230, 53, 0.25)');
+    ctx.strokeStyle = limeGlassSheen;
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    ctx.restore();
+  } else {
+    // Subtle Liquid Glass Border for Inactive Cards
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(bX, bY, bW, bH, bR);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+
+    // Top Edge Specular Highlight Line
+    ctx.beginPath();
+    ctx.moveTo(bX + bR, bY);
+    ctx.lineTo(bX + bW - bR, bY);
+    const topSheen = ctx.createLinearGradient(bX + bR, bY, bX + bW - bR, bY);
+    topSheen.addColorStop(0, 'rgba(255, 255, 255, 0.55)');
+    topSheen.addColorStop(0.35, 'rgba(255, 255, 255, 0.26)');
+    topSheen.addColorStop(1, 'rgba(255, 255, 255, 0.06)');
+    ctx.strokeStyle = topSheen;
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  return canvas.toDataURL('image/png');
+}
 
 export class CredentialsMobiusEngine {
   constructor() {
     this.section = document.getElementById('credentials');
     if (!this.section) return;
 
-    this.container       = null;
-    this.canvas          = null;
-    this.scene           = null;
-    this.camera          = null;
-    this.renderer        = null;
-    this.cylinderMaster  = null;
-    this.drumGroup       = null;
-    this.reflectionGroup = null;
-    this.cardMeshes      = [];
-    this.cardTextures    = [];
+    this.carousel = null;
+    this.currentPreset = 'cylinder';
+    this.isTriggered = false;
 
-    this.raycaster       = null;
-    this.pointer         = null;
-    this.animId          = null;
-    this.isInViewport    = true;
-    this.isTriggered     = false;
-
-    // Cylinder Dimensions (responsive)
-    this.radius          = 560; // Cylinder radius in 3D units
-    this.height          = 230; // Cylinder height in 3D units
-
-    // Continuous Spin & Inertia Physics
-    this.baseSpeed         = 0.0022;
-    this.speedFactor       = 1.0;
-    this.targetSpeedFactor = 1.0;
-    this.cylinderAngle     = 0;
-    this.dragVelocity      = 0;
-    this.isDragging        = false;
-    this.hasDragged        = false;
-    this.dragStartX        = 0;
-    this.lastPointerX      = 0;
-
-    // Parallax Tilt
-    this.camTiltX       = 0;
-    this.camTiltY       = 0;
-    this.targetCamTiltX = 0;
-    this.targetCamTiltY = 0;
-
-    this.hoveredMesh    = null;
-
-    // Lightbox references
-    this.lightbox          = null;
-    this.lightboxImg       = null;
+    // Lightbox DOM references
+    this.lightbox = null;
+    this.lightboxImg = null;
     this.lightboxPdfNotice = null;
-    this.lightboxTitle     = null;
-    this.lightboxBadge     = null;
-    this.lightboxOrg       = null;
-    this.lightboxCode      = null;
-    this.lightboxBackdrop  = null;
-    this.lightboxClose     = null;
-
-    this.animate       = this.animate.bind(this);
-    this.onResize      = this.onResize.bind(this);
-    this.onPointerMove = this.onPointerMove.bind(this);
-    this.onPointerDown = this.onPointerDown.bind(this);
-    this.onPointerUp   = this.onPointerUp.bind(this);
+    this.lightboxTitle = null;
+    this.lightboxBadge = null;
+    this.lightboxOrg = null;
+    this.lightboxCode = null;
+    this.lightboxBackdrop = null;
+    this.lightboxClose = null;
 
     this.init();
   }
 
   async init() {
     this.buildDOM();
-
-    // Ensure THREE is available (globally or imported)
-    if (!window.THREE) {
-      try {
-        const threeMod = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
-        window.THREE = threeMod;
-      } catch (err) {
-        console.warn('Three.js failed to load, falling back to window.THREE', err);
-      }
-    }
-
-    if (!window.THREE) {
-      console.error('Three.js unavailable for 3D curved cylinder');
-      return;
-    }
-
-    this.initThree();
-    this.buildScene();
+    await this.preloadLogos();
+    this.initCarousel();
     this.setupListeners();
-    this.setupIntersectionObserver();
-    this.onResize();
+  }
 
-    this.animId = requestAnimationFrame(this.animate);
+  async preloadLogos() {
+    const promises = [];
+    CERTIFICATES.forEach(cert => {
+      cert.logos.forEach(l => {
+        const img = LOGO_CACHE.get(l.name);
+        if (img && !img.complete) {
+          promises.push(new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          }));
+        }
+      });
+    });
+    if (promises.length > 0) {
+      await Promise.race([
+        Promise.all(promises),
+        new Promise(resolve => setTimeout(resolve, 500))
+      ]);
+    }
   }
 
   buildDOM() {
@@ -285,21 +608,24 @@ export class CredentialsMobiusEngine {
       <div class="cylinder-stage-wrap" id="orbit3d-wrapper">
         <!-- Section Header -->
         <div class="cylinder-header">
-          <span class="font-mono text-lime cylinder-tag">// VERIFIED CREDENTIALS &amp; AWARDS</span>
-          <h2 class="cylinder-title font-display">CREDENTIALS MATRIX</h2>
-          <p class="font-mono text-muted cylinder-sub">09 VERIFIED ARTIFACTS ON 3D SPINNING DRUM · DRAG TO SPIN · CLICK TO INSPECT</p>
+          <h2 class="cylinder-title font-display">MY CERTIFICATES</h2>
         </div>
 
-        <!-- 3D Curved WebGL Canvas Viewport Stage -->
-        <div class="cylinder-viewport" id="orbit3d-stage" role="region" aria-label="3D Credentials Curved Spinning Cylinder">
+        <!-- React Bits CircularCarousel Viewport Mount -->
+        <div class="cylinder-viewport" id="orbit3d-stage" role="region" aria-label="3D Certificates Ring">
           <div class="cylinder-glow-backdrop" aria-hidden="true"></div>
-          <canvas id="cylinder-webgl-canvas" class="cylinder-webgl-canvas"></canvas>
+          
+          <!-- Mounting point for CircularCarousel -->
+          <div id="circular-carousel-mount" class="circular-carousel-mount"></div>
+
+          <!-- Quick Step Arrows -->
+          <button class="cred-step-btn cred-step-prev" id="cred-step-prev" aria-label="Previous Certificate" title="Previous Certificate">❮</button>
+          <button class="cred-step-btn cred-step-next" id="cred-step-next" aria-label="Next Certificate" title="Next Certificate">❯</button>
         </div>
 
         <!-- Navigation HUD -->
         <div class="stage-nav-hud">
           <button id="cred-return-projects-btn" class="stage-nav-btn font-mono" title="Return to flagship projects">⤾ RETURN TO PROJECTS</button>
-          <button id="cred-to-contact-btn" class="stage-nav-btn font-mono text-lime" title="Zoom warp to Contact">WARP TO TRANSMISSION MATRIX ↯</button>
         </div>
       </div>
 
@@ -314,8 +640,8 @@ export class CredentialsMobiusEngine {
           <div class="orbit3d-lightbox-media-wrap" id="orbit3d-lightbox-media-wrap">
             <img src="" alt="" class="orbit3d-lightbox-img" id="orbit3d-lightbox-img" />
             <div class="orbit3d-lightbox-pdf-notice" id="orbit3d-lightbox-pdf-notice" style="display: none;">
-              <span class="font-mono text-lime" style="font-size: 1.1rem; display: block; margin-bottom: 0.8rem;">📄 VERIFIED PDF DOCUMENT</span>
-              <a href="#" target="_blank" id="orbit3d-lightbox-pdf-link" class="btn-primary" style="font-size: 0.78rem;">OPEN OFFICIAL PDF CREDENTIAL ↗</a>
+              <span class="font-mono text-lime" style="font-size: 1.05rem; display: block; margin-bottom: 0.8rem;">📄 VERIFIED PDF CREDENTIAL</span>
+              <a href="#" target="_blank" id="orbit3d-lightbox-pdf-link" class="btn-primary" style="font-size: 0.78rem;">OPEN OFFICIAL PDF DOCUMENT ↗</a>
             </div>
           </div>
           <div class="orbit3d-lightbox-footer">
@@ -329,9 +655,7 @@ export class CredentialsMobiusEngine {
       </div>
     `;
 
-    this.container = document.getElementById('orbit3d-stage');
-    this.canvas    = document.getElementById('cylinder-webgl-canvas');
-
+    // Cache Lightbox references
     this.lightbox          = document.getElementById('orbit3d-lightbox');
     this.lightboxImg       = document.getElementById('orbit3d-lightbox-img');
     this.lightboxPdfNotice = document.getElementById('orbit3d-lightbox-pdf-notice');
@@ -341,8 +665,120 @@ export class CredentialsMobiusEngine {
     this.lightboxCode      = document.getElementById('orbit3d-lightbox-code');
     this.lightboxBackdrop  = document.getElementById('orbit3d-lightbox-backdrop');
     this.lightboxClose     = document.getElementById('orbit3d-lightbox-close');
+  }
 
-    // Navigation Buttons
+  initCarousel() {
+    const mount = document.getElementById('circular-carousel-mount');
+    if (!mount) return;
+
+    // Generate liquid glass cards
+    const items = CERTIFICATES.map(cert => ({
+      src: generateCredentialCardCanvas(cert, false),
+      activeSrc: generateCredentialCardCanvas(cert, true),
+      alt: `${cert.title} — ${cert.org}`,
+      title: cert.title,
+      subtitle: `${cert.badge} · ${cert.subtitle}`,
+      cert
+    }));
+
+    this.carousel = new CircularCarousel(mount, {
+      items,
+      preset: 'cylinder',
+      intro: 'rise',
+      cardWidth: 420,
+      aspectRatio: 1.6,   // 640 / 400
+      gap: 26,
+      curve: 0.32,
+      tilt: -13,
+      roll: -5,
+      cardRoll: -3,
+      perspective: 1600,
+      autoplay: 'drift',
+      speed: 7,
+      interval: 3.5,
+      direction: 'left',
+      draggable: true,
+      momentum: 0.65,
+      snap: true,
+      pauseOnHover: true,
+      focusOnClick: true,
+      parallax: 0.22,
+      stretch: 0.2,
+      depthFade: 0.52,
+      fadeColor: '#050806',
+      innerShade: 0.45,
+      cornerRadius: 22,
+      captions: true,
+      onItemClick: (item, index) => {
+        if (item && item.cert) {
+          this.openLightbox(item.cert);
+        }
+      }
+    });
+
+    // If any logos were still loading, re-render cards smoothly once ready
+    let hasPendingLogos = false;
+    CERTIFICATES.forEach(cert => {
+      cert.logos.forEach(l => {
+        const img = LOGO_CACHE.get(l.name);
+        if (img && !img.complete) {
+          hasPendingLogos = true;
+          img.onload = () => {
+            this.refreshCardCanvas();
+          };
+        }
+      });
+    });
+  }
+
+  refreshCardCanvas() {
+    if (!this.carousel) return;
+    const updatedItems = CERTIFICATES.map(cert => ({
+      src: generateCredentialCardCanvas(cert, false),
+      activeSrc: generateCredentialCardCanvas(cert, true),
+      alt: `${cert.title} — ${cert.org}`,
+      title: cert.title,
+      subtitle: `${cert.badge} · ${cert.subtitle}`,
+      cert
+    }));
+    this.carousel.setItems(updatedItems);
+  }
+
+  setupListeners() {
+    // Preset Mode Switching Buttons
+    const presetBtns = document.querySelectorAll('.cred-preset-btn');
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const preset = btn.dataset.preset;
+        if (!preset || !PRESETS[preset] || !this.carousel) return;
+
+        presetBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        this.currentPreset = preset;
+        this.carousel.setPreset(preset);
+      });
+    });
+
+    // Step Arrow Buttons
+    const prevBtn = document.getElementById('cred-step-prev');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (this.carousel) this.carousel.stepBy(-1);
+      });
+    }
+
+    const nextBtn = document.getElementById('cred-step-next');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (this.carousel) this.carousel.stepBy(1);
+      });
+    }
+
+    // Navigation HUD Buttons
     const returnBtn = document.getElementById('cred-return-projects-btn');
     if (returnBtn) {
       returnBtn.addEventListener('click', (e) => {
@@ -365,6 +801,7 @@ export class CredentialsMobiusEngine {
       });
     }
 
+    // Lightbox Controls
     if (this.lightboxClose) {
       this.lightboxClose.addEventListener('click', () => this.closeLightbox());
     }
@@ -378,732 +815,39 @@ export class CredentialsMobiusEngine {
     });
   }
 
-  initThree() {
-    const THREE = window.THREE;
-    const rect = this.container.getBoundingClientRect();
-    const width = Math.max(320, rect.width || window.innerWidth);
-    const height = Math.max(380, rect.height || 540);
-
-    this.scene = new THREE.Scene();
-
-    // Camera at isometric eye-level perspective looking down into drum
-    this.camera = new THREE.PerspectiveCamera(36, width / height, 10, 5000);
-    this.camera.position.set(0, 125, 980);
-    this.camera.lookAt(0, -15, 0);
-
-    this.renderer = new THREE.WebGLRenderer({
-      canvas: this.canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance'
-    });
-    this.renderer.setSize(width, height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-    this.raycaster = new THREE.Raycaster();
-    this.pointer   = new THREE.Vector2();
-
-    // Studio Ambient & Emissive Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.90);
-    this.scene.add(ambientLight);
-
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.25);
-    dirLight.position.set(0, 700, 1100);
-    this.scene.add(dirLight);
-
-    // Amber bloom light (illuminates top rail & card top bevels)
-    const amberLight = new THREE.PointLight(0xff9900, 3.8, 1400);
-    amberLight.position.set(0, this.height / 2 + 70, 0);
-    this.scene.add(amberLight);
-
-    // Cyan bloom light (illuminates bottom rail & floor reflection)
-    const cyanLight = new THREE.PointLight(0x00f0ff, 3.8, 1400);
-    cyanLight.position.set(0, -this.height / 2 - 50, 0);
-    this.scene.add(cyanLight);
-  }
-
-  buildScene() {
-    const THREE = window.THREE;
-
-    // Master Cylinder Group with -8.5° elevation pitch for top-down isometric view
-    this.cylinderMaster = new THREE.Group();
-    this.cylinderMaster.rotation.x = -0.145; // ~8.5° pitch
-    this.scene.add(this.cylinderMaster);
-
-    // Rotating Drum Container
-    this.drumGroup = new THREE.Group();
-    this.cylinderMaster.add(this.drumGroup);
-
-    const total = CERTIFICATES.length;
-    const cardArc = (32.8 * Math.PI) / 180; // Angular span of each curved card (~32.8°)
-    const R = this.radius;
-    const H = this.height;
-
-    // ── 1. Physically Curved 3D Cylinder Cards ──
-    CERTIFICATES.forEach((cert, index) => {
-      // Cylinder geometry: radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength
-      // Centered at theta = 0 so it points directly outward (+Z)
-      const geo = new THREE.CylinderGeometry(
-        R,
-        R,
-        H,
-        36, // 36 radial segments for buttery-smooth curvature!
-        1,
-        true,
-        -cardArc / 2,
-        cardArc
-      );
-
-      const texture = this.createCardTexture(cert);
-      this.cardTextures.push(texture);
-
-      const mat = new THREE.MeshStandardMaterial({
-        map: texture,
-        transparent: true,
-        roughness: 0.28,
-        metalness: 0.12,
-        side: THREE.DoubleSide
-      });
-
-      const mesh = new THREE.Mesh(geo, mat);
-
-      // Distribute evenly around 360° circle: 9 cards * 40° = 360°
-      const angle = (index / total) * Math.PI * 2;
-      mesh.rotation.y = -angle;
-
-      mesh.userData = {
-        cert,
-        index,
-        baseAngle: angle,
-        material: mat
-      };
-
-      this.cardMeshes.push(mesh);
-      this.drumGroup.add(mesh);
-    });
-
-    // ── 2. Top Illuminated Warm Amber Laser Rail + Stardust Beads ──
-    const topRailGeo = new THREE.TorusGeometry(R, 2.6, 16, 120);
-    const topRailMat = new THREE.MeshStandardMaterial({
-      color: 0xffaa00,
-      emissive: 0xff8800,
-      emissiveIntensity: 2.2,
-      roughness: 0.15
-    });
-    const topRail = new THREE.Mesh(topRailGeo, topRailMat);
-    topRail.rotation.x = Math.PI / 2;
-    topRail.position.y = H / 2 + 1.5;
-    this.drumGroup.add(topRail);
-
-    // 40 Glowing Amber Beads
-    const beadCount = 40;
-    const beadGeo = new THREE.SphereGeometry(2.6, 8, 8);
-    const topBeadMat = new THREE.MeshBasicMaterial({ color: 0xfff6dd });
-
-    for (let i = 0; i < beadCount; i++) {
-      const bAngle = (i / beadCount) * Math.PI * 2;
-      const bead = new THREE.Mesh(beadGeo, topBeadMat);
-      bead.position.set(
-        Math.sin(bAngle) * R,
-        H / 2 + 1.5,
-        Math.cos(bAngle) * R
-      );
-      this.drumGroup.add(bead);
-    }
-
-    // ── 3. Bottom Illuminated Cool Cyan Laser Rail + Stardust Beads ──
-    const bottomRailGeo = new THREE.TorusGeometry(R, 2.6, 16, 120);
-    const bottomRailMat = new THREE.MeshStandardMaterial({
-      color: 0x00f0ff,
-      emissive: 0x00b8ff,
-      emissiveIntensity: 2.2,
-      roughness: 0.15
-    });
-    const bottomRail = new THREE.Mesh(bottomRailGeo, bottomRailMat);
-    bottomRail.rotation.x = Math.PI / 2;
-    bottomRail.position.y = -H / 2 - 1.5;
-    this.drumGroup.add(bottomRail);
-
-    // 40 Glowing Cyan Beads
-    const bottomBeadMat = new THREE.MeshBasicMaterial({ color: 0xe0ffff });
-    for (let i = 0; i < beadCount; i++) {
-      const bAngle = (i / beadCount) * Math.PI * 2;
-      const bead = new THREE.Mesh(beadGeo, bottomBeadMat);
-      bead.position.set(
-        Math.sin(bAngle) * R,
-        -H / 2 - 1.5,
-        Math.cos(bAngle) * R
-      );
-      this.drumGroup.add(bead);
-    }
-
-    // ── 4. Smoked Glass Cylindrical Drum Ribbon ──
-    const drumBodyGeo = new THREE.CylinderGeometry(R - 0.8, R - 0.8, H + 5, 64, 1, true);
-    const drumBodyMat = new THREE.MeshPhysicalMaterial({
-      color: 0x040a0e,
-      transparent: true,
-      opacity: 0.38,
-      roughness: 0.35,
-      metalness: 0.2,
-      side: THREE.DoubleSide
-    });
-    const drumBody = new THREE.Mesh(drumBodyGeo, drumBodyMat);
-    this.drumGroup.add(drumBody);
-
-    // ── 5. Glossy Reflective Studio Floor ──
-    // Inverted reflection of cylinder drum
-    this.reflectionGroup = this.drumGroup.clone(true);
-    this.reflectionGroup.scale.y = -1;
-    this.reflectionGroup.position.y = -H - 32;
-
-    this.reflectionGroup.traverse((child) => {
-      if (child.isMesh) {
-        child.material = child.material.clone();
-        child.material.transparent = true;
-        child.material.opacity = child.material.opacity * 0.32;
-      }
-    });
-    this.cylinderMaster.add(this.reflectionGroup);
-
-    // Dark Mirror Floor Disc with Specular Cyan/Amber Falloff
-    const floorGeo = new THREE.PlaneGeometry(3200, 3200);
-    const floorTexture = this.createFloorTexture();
-    const floorMat = new THREE.MeshBasicMaterial({
-      map: floorTexture,
-      transparent: true,
-      opacity: 0.95,
-      depthWrite: false
-    });
-    const floorMesh = new THREE.Mesh(floorGeo, floorMat);
-    floorMesh.rotation.x = -Math.PI / 2;
-    floorMesh.position.y = -H / 2 - 18;
-    this.cylinderMaster.add(floorMesh);
-  }
-
-  // Generates high-resolution 1024x640 card texture matching reference mockup
-  createCardTexture(cert) {
-    const THREE = window.THREE;
-    const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = 640;
-    const ctx = canvas.getContext('2d');
-
-    const render = () => {
-      ctx.clearRect(0, 0, 1024, 640);
-
-      // Card Background Rounded Rectangle
-      const x = 16, y = 16, w = 992, h = 608, r = 44;
-      ctx.save();
-      ctx.beginPath();
-      ctx.roundRect(x, y, w, h, r);
-      ctx.clip();
-
-      // Deep Obsidian Graphite Glass Gradient
-      const bgGrad = ctx.createLinearGradient(0, 0, 1024, 640);
-      bgGrad.addColorStop(0, '#121b20');
-      bgGrad.addColorStop(0.5, '#0a1114');
-      bgGrad.addColorStop(1, '#05090b');
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(x, y, w, h);
-
-      // Curved Inset Edge Shadows (lateral cylindrical lighting curvature)
-      const leftShadow = ctx.createLinearGradient(x, 0, x + 140, 0);
-      leftShadow.addColorStop(0, 'rgba(0, 0, 0, 0.75)');
-      leftShadow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = leftShadow;
-      ctx.fillRect(x, y, 140, h);
-
-      const rightShadow = ctx.createLinearGradient(x + w - 140, 0, x + w, 0);
-      rightShadow.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      rightShadow.addColorStop(1, 'rgba(0, 0, 0, 0.75)');
-      ctx.fillStyle = rightShadow;
-      ctx.fillRect(x + w - 140, y, 140, h);
-
-      // Top Amber Rim Highlight
-      const topRim = ctx.createLinearGradient(0, y, 0, y + 25);
-      topRim.addColorStop(0, 'rgba(255, 170, 0, 0.45)');
-      topRim.addColorStop(1, 'rgba(255, 170, 0, 0)');
-      ctx.fillStyle = topRim;
-      ctx.fillRect(x, y, w, 25);
-
-      // Bottom Cyan Rim Highlight
-      const bottomRim = ctx.createLinearGradient(0, y + h - 25, 0, y + h);
-      bottomRim.addColorStop(0, 'rgba(0, 240, 255, 0)');
-      bottomRim.addColorStop(1, 'rgba(0, 240, 255, 0.45)');
-      ctx.fillStyle = bottomRim;
-      ctx.fillRect(x, y + h - 25, w, 25);
-
-      ctx.restore();
-
-      // Outer Stroke Border
-      ctx.save();
-      ctx.beginPath();
-      ctx.roundRect(x, y, w, h, r);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
-      ctx.lineWidth = 4;
-      ctx.stroke();
-      ctx.restore();
-
-      // ── TOP ROW: Brand Logos & Status Tag ──
-      let curX = 60;
-      const topY = 65;
-
-      cert.logos.forEach(logo => {
-        const cachedImg = LOGO_CACHE.get(logo.name);
-        const pillW = (cachedImg && cachedImg.complete && cachedImg.naturalWidth > 0) ? 90 : 80;
-        const pillH = 46;
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.roundRect(curX, topY, pillW, pillH, 12);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.72)';
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        if (cachedImg && cachedImg.complete && cachedImg.naturalWidth > 0) {
-          ctx.drawImage(cachedImg, curX + 10, topY + 8, pillW - 20, pillH - 16);
-        } else {
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = 'bold 18px monospace';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(logo.label || logo.name, curX + pillW / 2, topY + pillH / 2);
-        }
-        ctx.restore();
-
-        curX += pillW + 14;
-      });
-
-      // Accent Status Pill (Right)
-      ctx.save();
-      ctx.font = 'bold 20px monospace';
-      const badgeText = cert.badge;
-      const badgeTextW = ctx.measureText(badgeText).width;
-      const badgePillW = badgeTextW + 36;
-      const badgePillX = 964 - badgePillW;
-
-      ctx.beginPath();
-      ctx.roundRect(badgePillX, topY, badgePillW, 46, 12);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
-      ctx.fill();
-      ctx.strokeStyle = cert.accent;
-      ctx.lineWidth = 2.5;
-      ctx.stroke();
-
-      ctx.fillStyle = cert.accent;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(badgeText, badgePillX + badgePillW / 2, topY + 23);
-      ctx.restore();
-
-      // ── TITLE & SUBTITLE ──
-      ctx.save();
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '800 46px "Syne", -apple-system, sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
-
-      let titleText = cert.title;
-      if (ctx.measureText(titleText).width > 880) {
-        while (ctx.measureText(titleText + '...').width > 880 && titleText.length > 5) {
-          titleText = titleText.slice(0, -1);
-        }
-        titleText += '...';
-      }
-      ctx.fillText(titleText, 60, 160);
-
-      ctx.fillStyle = cert.accent;
-      ctx.font = 'bold 22px monospace';
-      let subText = cert.subtitle;
-      if (ctx.measureText(subText).width > 880) {
-        while (ctx.measureText(subText + '...').width > 880 && subText.length > 5) {
-          subText = subText.slice(0, -1);
-        }
-        subText += '...';
-      }
-      ctx.fillText(subText, 60, 230);
-      ctx.restore();
-
-      // ── MIDDLE ROW: Shield Score & Circular Checkmark Seal ──
-      // Divider Line
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(60, 305);
-      ctx.lineTo(964, 305);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.restore();
-
-      // Shield Icon
-      ctx.save();
-      const sX = 60, sY = 340;
-      ctx.fillStyle = cert.accent;
-      ctx.strokeStyle = cert.accent;
-      ctx.lineWidth = 3;
-
-      // Draw SVG Shield
-      ctx.beginPath();
-      ctx.moveTo(sX + 16, sY);
-      ctx.lineTo(sX + 32, sY + 8);
-      ctx.lineTo(sX + 32, sY + 26);
-      ctx.bezierCurveTo(sX + 32, sY + 38, sX + 16, sY + 46, sX + 16, sY + 48);
-      ctx.bezierCurveTo(sX + 16, sY + 46, sX, sY + 38, sX, sY + 26);
-      ctx.lineTo(sX, sY + 8);
-      ctx.closePath();
-      ctx.globalAlpha = 0.25;
-      ctx.fill();
-      ctx.globalAlpha = 1.0;
-      ctx.stroke();
-
-      // Checkmark inside shield
-      ctx.beginPath();
-      ctx.moveTo(sX + 8, sY + 24);
-      ctx.lineTo(sX + 14, sY + 30);
-      ctx.lineTo(sX + 24, sY + 18);
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 3.5;
-      ctx.stroke();
-      ctx.restore();
-
-      // Score text & issuer
-      ctx.save();
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 28px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
-      ctx.fillText(cert.score, 110, 335);
-
-      ctx.fillStyle = '#8E9EA4';
-      ctx.font = '20px monospace';
-      ctx.fillText(cert.issuerTag, 110, 375);
-      ctx.restore();
-
-      // Glowing Circular Seal Badge Stamp (Right)
-      ctx.save();
-      const sealX = 910, sealY = 365, sealR = 36;
-      ctx.strokeStyle = cert.accent;
-
-      // Outer dashed circle
-      ctx.beginPath();
-      ctx.arc(sealX, sealY, sealR, 0, Math.PI * 2);
-      ctx.setLineDash([6, 4]);
-      ctx.lineWidth = 2.5;
-      ctx.stroke();
-
-      // Inner solid circle
-      ctx.beginPath();
-      ctx.setLineDash([]);
-      ctx.arc(sealX, sealY, sealR - 8, 0, Math.PI * 2);
-      ctx.lineWidth = 2.5;
-      ctx.fillStyle = cert.accent;
-      ctx.globalAlpha = 0.2;
-      ctx.fill();
-      ctx.globalAlpha = 1.0;
-      ctx.stroke();
-
-      // Seal Checkmark
-      ctx.beginPath();
-      ctx.moveTo(sealX - 12, sealY);
-      ctx.lineTo(sealX - 4, sealY + 8);
-      ctx.lineTo(sealX + 12, sealY - 8);
-      ctx.lineWidth = 3.5;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.stroke();
-      ctx.restore();
-
-      // ── BOTTOM ROW: Telemetry ID & Date ──
-      ctx.save();
-      ctx.fillStyle = '#7B8C92';
-      ctx.font = 'bold 20px monospace';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText(`ID: ${cert.code}`, 60, 580);
-
-      ctx.fillStyle = '#6C7D83';
-      ctx.textAlign = 'right';
-      ctx.fillText(cert.date, 964, 580);
-      ctx.restore();
-    };
-
-    render();
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = this.renderer ? this.renderer.capabilities.getMaxAnisotropy() : 8;
-    texture.needsUpdate = true;
-
-    // If logo SVGs load asynchronously, repaint texture
-    cert.logos.forEach(logo => {
-      const img = LOGO_CACHE.get(logo.name);
-      if (img && !img.complete) {
-        img.onload = () => {
-          render();
-          texture.needsUpdate = true;
-        };
-      }
-    });
-
-    return texture;
-  }
-
-  // Dark studio floor mirror texture with radial cyan/amber specular falloff
-  createFloorTexture() {
-    const THREE = window.THREE;
-    const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = 1024;
-    const ctx = canvas.getContext('2d');
-
-    const grad = ctx.createRadialGradient(512, 512, 10, 512, 512, 512);
-    grad.addColorStop(0, 'rgba(0, 240, 255, 0.14)');
-    grad.addColorStop(0.25, 'rgba(255, 170, 0, 0.05)');
-    grad.addColorStop(0.50, 'rgba(5, 10, 14, 0.88)');
-    grad.addColorStop(0.70, 'rgba(2, 4, 6, 0.98)');
-    grad.addColorStop(1, 'rgba(0, 0, 0, 1)');
-
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1024, 1024);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    return texture;
-  }
-
-  setupListeners() {
-    window.addEventListener('resize', this.onResize, { passive: true });
-    window.addEventListener('mousemove', this.onPointerMove, { passive: true });
-
-    if (!this.canvas) return;
-
-    this.canvas.addEventListener('pointerdown', this.onPointerDown);
-    window.addEventListener('pointermove', this.onPointerMove);
-    window.addEventListener('pointerup', this.onPointerUp);
-  }
-
-  setupIntersectionObserver() {
-    if (!('IntersectionObserver' in window) || !this.section) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          this.isInViewport = entry.isIntersecting;
-        });
-      },
-      { threshold: 0.05 }
-    );
-    observer.observe(this.section);
-  }
-
-  onPointerDown(e) {
-    this.isDragging   = true;
-    this.hasDragged   = false;
-    this.dragStartX   = e.clientX;
-    this.lastPointerX = e.clientX;
-    this.dragVelocity = 0;
-  }
-
-  onPointerMove(e) {
-    // Parallax Tilt
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    this.targetCamTiltX = Math.max(-1, Math.min(1, (e.clientX - cx) / cx));
-    this.targetCamTiltY = Math.max(-1, Math.min(1, (e.clientY - cy) / cy));
-
-    if (this.isDragging) {
-      const deltaX = e.clientX - this.lastPointerX;
-      if (Math.abs(e.clientX - this.dragStartX) > 6) {
-        this.hasDragged = true;
-      }
-      this.dragVelocity = deltaX * 0.0032;
-      this.cylinderAngle -= this.dragVelocity;
-      this.lastPointerX = e.clientX;
-      return;
-    }
-
-    // Raycast for Hover Time-Dilation & Inspect Highlights
-    if (!this.canvas || !this.camera || !this.raycaster) return;
-
-    const rect = this.canvas.getBoundingClientRect();
-    this.pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    this.pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
-    this.raycaster.setFromCamera(this.pointer, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.cardMeshes);
-
-    if (intersects.length > 0) {
-      const hit = intersects[0].object;
-      this.hoveredMesh = hit;
-      this.targetSpeedFactor = 0.04; // Smoothly slows cylinder down for reading
-      this.canvas.style.cursor = 'pointer';
-
-      // Subtle emissive glow on hovered mesh
-      this.cardMeshes.forEach(m => {
-        if (m === hit) {
-          m.material.emissive = new window.THREE.Color(0x334455);
-          m.material.emissiveIntensity = 0.45;
-        } else {
-          m.material.emissive = new window.THREE.Color(0x000000);
-          m.material.emissiveIntensity = 0;
-        }
-      });
-    } else {
-      this.hoveredMesh = null;
-      this.targetSpeedFactor = 1.0;
-      this.canvas.style.cursor = 'grab';
-
-      this.cardMeshes.forEach(m => {
-        m.material.emissive = new window.THREE.Color(0x000000);
-        m.material.emissiveIntensity = 0;
-      });
-    }
-  }
-
-  onPointerUp(e) {
-    if (!this.isDragging) return;
-    this.isDragging = false;
-
-    // If it was a quick click (no drag), open Lightbox
-    if (!this.hasDragged && this.canvas && this.camera && this.raycaster) {
-      const rect = this.canvas.getBoundingClientRect();
-      this.pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      this.pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
-      this.raycaster.setFromCamera(this.pointer, this.camera);
-      const intersects = this.raycaster.intersectObjects(this.cardMeshes);
-
-      if (intersects.length > 0) {
-        const hit = intersects[0].object;
-        if (hit.userData && hit.userData.cert) {
-          this.openLightbox(hit.userData.cert);
-        }
-      }
-    }
-  }
-
-  onResize() {
-    if (!this.container || !this.camera || !this.renderer) return;
-
-    const rect = this.container.getBoundingClientRect();
-    const width = Math.max(320, rect.width || window.innerWidth);
-    const height = Math.max(380, rect.height || 540);
-
-    this.camera.aspect = width / height;
-
-    if (width < 480) {
-      this.camera.position.z = 1450;
-      this.camera.position.y = 185;
-    } else if (width < 768) {
-      this.camera.position.z = 1250;
-      this.camera.position.y = 160;
-    } else if (width < 1024) {
-      this.camera.position.z = 1100;
-      this.camera.position.y = 140;
-    } else {
-      this.camera.position.z = 980;
-      this.camera.position.y = 125;
-    }
-
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
-  trigger(forceImmediate = false) {
-    this.isTriggered  = true;
-    this.isInViewport = true;
-    this.onResize();
-    this.speedFactor  = forceImmediate ? 1.5 : 1.3;
-  }
-
-  animate() {
-    const layer = this.section ? this.section.closest('.credentials-space-layer') : null;
-    const isLayerHidden = layer && (
-      layer.style.visibility === 'hidden' ||
-      (layer.style.opacity !== '' && parseFloat(layer.style.opacity) < 0.02)
-    );
-    const p = window.AppState?.techSolar?.zoomProgress ?? 0;
-    const isAway = (p > 0 && (p < 0.62 || p > 0.94));
-
-    if (document.hidden || isLayerHidden || isAway || !this.isInViewport) {
-      this.animId = requestAnimationFrame(this.animate);
-      return;
-    }
-
-    // Parallax Camera Interpolation
-    if (window.AppState?.gyro?.active) {
-      this.targetCamTiltX =  window.AppState.gyro.x;
-      this.targetCamTiltY = -window.AppState.gyro.y;
-    }
-
-    this.camTiltX += (this.targetCamTiltX - this.camTiltX) * 0.05;
-    this.camTiltY += (this.targetCamTiltY - this.camTiltY) * 0.05;
-
-    if (this.camera) {
-      this.camera.position.x = this.camTiltX * 70;
-      this.camera.lookAt(0, -10, 0);
-    }
-
-    // Speed-Dilation & Continuous Rotation
-    this.speedFactor += (this.targetSpeedFactor - this.speedFactor) * 0.08;
-    this.cylinderAngle += this.baseSpeed * this.speedFactor;
-
-    if (!this.isDragging && Math.abs(this.dragVelocity) > 0.00005) {
-      this.cylinderAngle += this.dragVelocity;
-      this.dragVelocity *= 0.94;
-    }
-
-    // Update 3D Drum and Mirror Reflection
-    if (this.drumGroup) {
-      this.drumGroup.rotation.y = this.cylinderAngle;
-    }
-    if (this.reflectionGroup) {
-      this.reflectionGroup.rotation.y = this.cylinderAngle;
-    }
-
-    if (this.renderer && this.scene && this.camera) {
-      this.renderer.render(this.scene, this.camera);
-    }
-
-    this.animId = requestAnimationFrame(this.animate);
-  }
-
   /* ================================================================
-   *  LIGHTBOX: CLICK TO REVEAL FULL RESOLUTION CERTIFICATE
+   *  LIGHTBOX: CLICK TO REVEAL FULL RESOLUTION CERTIFICATE DOCUMENT
    * ================================================================ */
 
   openLightbox(cert) {
     if (!this.lightbox) return;
 
-    const isPDF = cert.image.toLowerCase().endsWith('.pdf');
+    const isPDF = Boolean(cert.pdfUrl) || cert.image.toLowerCase().endsWith('.pdf');
 
     if (this.lightboxImg && this.lightboxPdfNotice) {
-      if (!isPDF) {
-        this.lightboxImg.src           = cert.image;
-        this.lightboxImg.alt           = cert.title;
-        this.lightboxImg.style.display = 'block';
-        this.lightboxPdfNotice.style.display = 'none';
-      } else {
-        this.lightboxImg.style.display = 'none';
-        this.lightboxPdfNotice.style.display       = 'flex';
+      this.lightboxImg.src = cert.image;
+      this.lightboxImg.alt = cert.title;
+      this.lightboxImg.style.display = 'block';
+
+      if (isPDF) {
+        this.lightboxPdfNotice.style.display = 'flex';
         this.lightboxPdfNotice.style.flexDirection = 'column';
-        this.lightboxPdfNotice.style.alignItems    = 'center';
-        this.lightboxPdfNotice.style.padding       = '3rem 2rem';
+        this.lightboxPdfNotice.style.alignItems = 'center';
+        this.lightboxPdfNotice.style.padding = '1.2rem 2rem';
         const pdfLink = document.getElementById('orbit3d-lightbox-pdf-link');
-        if (pdfLink) pdfLink.href = cert.image;
+        if (pdfLink) pdfLink.href = cert.pdfUrl || cert.image;
+      } else {
+        this.lightboxPdfNotice.style.display = 'none';
       }
     }
 
     if (this.lightboxTitle) this.lightboxTitle.textContent = cert.title;
     if (this.lightboxBadge) {
-      this.lightboxBadge.textContent    = cert.badge;
-      this.lightboxBadge.style.color       = cert.accent;
+      this.lightboxBadge.textContent = cert.badge;
+      this.lightboxBadge.style.color = cert.accent;
       this.lightboxBadge.style.borderColor = cert.accent;
     }
-    if (this.lightboxOrg)  this.lightboxOrg.textContent  = `${cert.subtitle} · ${cert.org}`;
+    if (this.lightboxOrg) this.lightboxOrg.textContent = `${cert.subtitle} · ${cert.org}`;
     if (this.lightboxCode) this.lightboxCode.textContent = `ID: ${cert.code}`;
 
     this.lightbox.classList.add('is-open');
@@ -1116,13 +860,18 @@ export class CredentialsMobiusEngine {
     this.lightbox.setAttribute('aria-hidden', 'true');
   }
 
+  trigger(immediate = false) {
+    this.isTriggered = true;
+    if (this.carousel) {
+      this.carousel.wake();
+    }
+  }
+
   destroy() {
-    if (this.animId) cancelAnimationFrame(this.animId);
-    window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('mousemove', this.onPointerMove);
-    window.removeEventListener('pointermove', this.onPointerMove);
-    window.removeEventListener('pointerup', this.onPointerUp);
-    if (this.renderer) this.renderer.dispose();
+    if (this.carousel) {
+      this.carousel.destroy();
+      this.carousel = null;
+    }
   }
 }
 
