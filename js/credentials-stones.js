@@ -11,6 +11,7 @@
  */
 
 import { CircularCarousel, PRESETS } from './circular-carousel.js';
+import { ThreeCurvedCarousel } from './three-curved-carousel.js';
 
 // ── Verified Certificates with Authentic Analyzed Logos & Telemetry ──
 export const CERTIFICATES = [
@@ -27,6 +28,26 @@ export const CERTIFICATES = [
     score: 'Score: 92% (Top 2% Topper)',
     image: 'assets/certificates/Nptelmachinelearning.png',
     pills: ['IIT Kharagpur', 'SWAYAM'],
+    logos: [
+      { name: 'iit-kharagpur', label: 'IIT KGP' },
+      { name: 'nptel', label: 'NPTEL' },
+      { name: 'swayam', label: 'SWAYAM' }
+    ]
+  },
+  {
+    id: 'nptel-dl-nlp',
+    title: 'Deep Learning for NLP (Elite 77%)',
+    subtitle: 'NPTEL ONLINE CERTIFICATION · 12-WEEK ADVANCED ELECTIVE',
+    org: 'Indian Institute of Technology Kharagpur',
+    issuerTag: 'IIT Kharagpur · SWAYAM · MoE',
+    code: 'NPTEL26CS181S654701385',
+    date: 'JUL-OCT 2026',
+    accent: '#06B6D4',
+    badge: '📜 ELITE 77%',
+    score: 'Score: 77% (Elite)',
+    image: 'assets/certificates/NPTELDEEPLEARNINGNATURALLANGPROC.png',
+    pdfUrl: 'assets/certificates/NPTELDEEPLEARNINGNATURALLANGPROC.pdf',
+    pills: ['IIT Kharagpur', 'Deep Learning', 'NLP'],
     logos: [
       { name: 'iit-kharagpur', label: 'IIT KGP' },
       { name: 'nptel', label: 'NPTEL' },
@@ -88,6 +109,25 @@ export const CERTIFICATES = [
       { name: 'edu-ai', label: 'edu@ai 3.0' },
       { name: 'mits', label: 'MITS' },
       { name: 'ihrd', label: 'IHRD Kerala' }
+    ]
+  },
+  {
+    id: 'ibm-datathon',
+    title: 'IBM Z Datathon 2026',
+    subtitle: 'GLOBAL DATATHON EVENT · SHOOTING STARS FOUNDATION',
+    org: 'IBM Z & Shooting Stars Foundation',
+    issuerTag: 'IBM Z · LinuxONE · SSF',
+    code: 'IBMZ-DATA-2026-SSF',
+    date: 'OCT 17, 2026',
+    accent: '#0F62FE',
+    badge: '⚡ IBM Z',
+    score: 'Global Participant',
+    image: 'assets/certificates/ibmdatathon.png',
+    pdfUrl: 'assets/certificates/ibmdatathon.pdf',
+    pills: ['IBM Z', 'Data Science', 'LinuxONE'],
+    logos: [
+      { name: 'ibm', label: 'IBM Z' },
+      { name: 'ssf', label: 'SSF' }
     ]
   },
   {
@@ -212,7 +252,7 @@ CERTIFICATES.forEach(cert => {
 export function generateCredentialCardCanvas(cert, isActive = false) {
   const canvas = document.createElement('canvas');
   const w = 640;
-  const h = 400;
+  const h = 320;
   const dpr = 2; // High-DPI Retina sharpness
   canvas.width = w * dpr;
   canvas.height = h * dpr;
@@ -223,7 +263,7 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
   const bY = pad;
   const bW = w - pad * 2;
   const bH = h - pad * 2;
-  const bR = 22;
+  const bR = 20;
 
   // 1. Clip card body with rounded corners
   ctx.save();
@@ -310,9 +350,9 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
   ctx.restore();
 
   // 2. TOP ROW: Brand Logos
-  let curX = 38;
-  const topY = 32;
-  const maxLogoH = 34;
+  let curX = 36;
+  const topY = 24;
+  const maxLogoH = 28;
 
   cert.logos.forEach(logo => {
     const cachedImg = LOGO_CACHE.get(logo.name);
@@ -321,19 +361,19 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
     if (hasImage) {
       const imgAspect = cachedImg.naturalWidth / cachedImg.naturalHeight;
       const drawH = maxLogoH;
-      const drawW = Math.min(drawH * imgAspect, 80);
+      const drawW = Math.min(drawH * imgAspect, 76);
 
       ctx.save();
       ctx.drawImage(cachedImg, curX, topY + (maxLogoH - drawH) / 2, drawW, drawH);
       ctx.restore();
-      curX += drawW + 16;
+      curX += drawW + 14;
     } else {
       ctx.save();
-      ctx.font = 'bold 12px -apple-system, sans-serif';
+      ctx.font = 'bold 11px -apple-system, sans-serif';
       const textW = ctx.measureText(logo.label || logo.name).width;
-      const pillW = textW + 22;
+      const pillW = textW + 20;
       ctx.beginPath();
-      ctx.roundRect(curX, topY + 2, pillW, 28, 8);
+      ctx.roundRect(curX, topY + 1, pillW, 26, 7);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
       ctx.fill();
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
@@ -343,21 +383,21 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
       ctx.fillStyle = '#FFFFFF';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(logo.label || logo.name, curX + pillW / 2, topY + 16);
+      ctx.fillText(logo.label || logo.name, curX + pillW / 2, topY + 14);
       ctx.restore();
-      curX += pillW + 12;
+      curX += pillW + 10;
     }
   });
 
   // 3. TITLE: Big Bold Modern White Typography (Matching Image 2)
   ctx.save();
   ctx.fillStyle = '#FFFFFF';
-  ctx.font = '800 32px "Syne", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+  ctx.font = '800 28px "Syne", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
   ctx.textAlign = 'left';
   ctx.textBaseline = 'top';
 
-  const titleX = 38;
-  const titleY = 105;
+  const titleX = 36;
+  const titleY = 78;
   const maxTitleW = 560;
 
   let words = cert.title.split(' ');
@@ -382,21 +422,21 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
 
   ctx.fillText(line1, titleX, titleY);
   if (line2) {
-    ctx.fillText(line2, titleX, titleY + 40);
+    ctx.fillText(line2, titleX, titleY + 36);
   }
   ctx.restore();
 
   // 4. BOTTOM LEFT: Hexagonal / Shield Credential Badge
   ctx.save();
-  const badgeX = 38;
-  const badgeY = 248;
-  const badgeW = 68;
-  const badgeH = 74;
+  const badgeX = 36;
+  const badgeY = 196;
+  const badgeW = 60;
+  const badgeH = 68;
 
   // Draw sleek hexagonal shield
   const bx = badgeX + badgeW / 2;
   const by = badgeY + badgeH / 2;
-  const br = 32;
+  const br = 28;
   ctx.beginPath();
   for (let i = 0; i < 6; i++) {
     const angle = ((i * 60 - 30) * Math.PI) / 180;
@@ -417,16 +457,16 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
 
   // Inner emblem ring inside badge
   ctx.beginPath();
-  ctx.arc(bx, by - 6, 11, 0, Math.PI * 2);
+  ctx.arc(bx, by - 5, 10, 0, Math.PI * 2);
   ctx.strokeStyle = accentHex;
   ctx.lineWidth = 1.4;
   ctx.stroke();
 
   // Center checkmark inside emblem
   ctx.beginPath();
-  ctx.moveTo(bx - 5, by - 6);
+  ctx.moveTo(bx - 4, by - 5);
   ctx.lineTo(bx - 1, by - 2);
-  ctx.lineTo(bx + 5, by - 8);
+  ctx.lineTo(bx + 4, by - 7);
   ctx.strokeStyle = '#FFFFFF';
   ctx.lineWidth = 2;
   ctx.lineCap = 'round';
@@ -434,29 +474,29 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
   ctx.stroke();
 
   // Date or label below emblem inside badge
-  ctx.font = 'bold 10px monospace';
+  ctx.font = 'bold 9.5px monospace';
   ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   const badgeLabel = cert.date.length > 8 ? cert.date.slice(0, 8) : cert.date;
-  ctx.fillText(badgeLabel, bx, by + 16);
+  ctx.fillText(badgeLabel, bx, by + 14);
   ctx.restore();
 
   // 5. BOTTOM ROW: Glassy Pill Badges
   ctx.save();
-  const pillStartX = 126;
+  const pillStartX = 112;
   let pillX = pillStartX;
-  const pillY = 260;
+  const pillY = 212;
   const pills = cert.pills || [cert.org.split(' ')[0], cert.badge.replace(/[^\w\s%]/g, '').trim()];
 
   pills.forEach(pillText => {
-    ctx.font = 'bold 13px -apple-system, sans-serif';
+    ctx.font = 'bold 12px -apple-system, sans-serif';
     const textW = ctx.measureText(pillText).width;
-    const pW = textW + 28;
-    const pH = 32;
+    const pW = textW + 24;
+    const pH = 30;
 
     ctx.beginPath();
-    ctx.roundRect(pillX, pillY, pW, pH, 16);
+    ctx.roundRect(pillX, pillY, pW, pH, 15);
 
     const pillGrad = ctx.createLinearGradient(pillX, pillY, pillX, pillY + pH);
     pillGrad.addColorStop(0, 'rgba(255, 255, 255, 0.14)');
@@ -469,8 +509,8 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(pillX + 10, pillY + 1);
-    ctx.lineTo(pillX + pW - 10, pillY + 1);
+    ctx.moveTo(pillX + 8, pillY + 1);
+    ctx.lineTo(pillX + pW - 8, pillY + 1);
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
     ctx.lineWidth = 1;
     ctx.stroke();
@@ -480,7 +520,7 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
     ctx.textBaseline = 'middle';
     ctx.fillText(pillText, pillX + pW / 2, pillY + pH / 2);
 
-    pillX += pW + 12;
+    pillX += pW + 10;
   });
   ctx.restore();
 
@@ -531,8 +571,8 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
     ctx.save();
     ctx.beginPath();
     ctx.roundRect(bX, bY, bW, bH, bR);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
-    ctx.lineWidth = 1.6;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
+    ctx.lineWidth = 1.8;
     ctx.stroke();
 
     // Top Edge Specular Highlight Line
@@ -540,11 +580,11 @@ export function generateCredentialCardCanvas(cert, isActive = false) {
     ctx.moveTo(bX + bR, bY);
     ctx.lineTo(bX + bW - bR, bY);
     const topSheen = ctx.createLinearGradient(bX + bR, bY, bX + bW - bR, bY);
-    topSheen.addColorStop(0, 'rgba(255, 255, 255, 0.55)');
-    topSheen.addColorStop(0.35, 'rgba(255, 255, 255, 0.26)');
-    topSheen.addColorStop(1, 'rgba(255, 255, 255, 0.06)');
+    topSheen.addColorStop(0, 'rgba(255, 255, 255, 0.75)');
+    topSheen.addColorStop(0.35, 'rgba(255, 255, 255, 0.42)');
+    topSheen.addColorStop(1, 'rgba(255, 255, 255, 0.12)');
     ctx.strokeStyle = topSheen;
-    ctx.lineWidth = 1.6;
+    ctx.lineWidth = 1.8;
     ctx.stroke();
     ctx.restore();
   }
@@ -625,7 +665,8 @@ export class CredentialsMobiusEngine {
 
         <!-- Navigation HUD -->
         <div class="stage-nav-hud">
-          <button id="cred-return-projects-btn" class="stage-nav-btn font-mono" title="Return to flagship projects">⤾ RETURN TO PROJECTS</button>
+          <button id="cred-return-home-btn" class="stage-nav-btn font-mono" title="Return to home landing">⤾ RETURN TO HOME</button>
+          <button id="cred-to-tech-btn" class="stage-nav-btn font-mono text-lime" title="Proceed to tech stack matrix">JOURNEY TO TECH MATRIX ↯</button>
         </div>
       </div>
 
@@ -681,18 +722,18 @@ export class CredentialsMobiusEngine {
       cert
     }));
 
-    this.carousel = new CircularCarousel(mount, {
+    this.carousel = new ThreeCurvedCarousel(mount, {
       items,
       preset: 'cylinder',
       intro: 'rise',
       cardWidth: 420,
-      aspectRatio: 1.6,   // 640 / 400
-      gap: 26,
-      curve: 0.32,
-      tilt: -13,
-      roll: -5,
-      cardRoll: -3,
-      perspective: 1600,
+      aspectRatio: 2.0,   // 640 / 320 (sleek widescreen aspect ratio)
+      cardW: 2.02,        // Arc width on R=4.8 cylinder (leaves clean ~8.6° gap between 11 cards)
+      radius: 4.8,
+      tilt: -13,       // Cylinder 3D pitch tilt (keeps the cylinder itself tilted in 3D space)
+      roll: -4,        // Camera Z-axis roll (negative = CCW, positive = CW)
+      cardRoll: 0,     // Card tilt in degrees (Positive = CLOCKWISE, Negative = COUNTER-CLOCKWISE)
+      perspective: 38,
       autoplay: 'drift',
       speed: 7,
       interval: 3.5,
@@ -779,25 +820,20 @@ export class CredentialsMobiusEngine {
     }
 
     // Navigation HUD Buttons
-    const returnBtn = document.getElementById('cred-return-projects-btn');
-    if (returnBtn) {
-      returnBtn.addEventListener('click', (e) => {
+    const returnHomeBtn = document.getElementById('cred-return-home-btn');
+    if (returnHomeBtn) {
+      returnHomeBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (window.AppState?.techSolar) window.AppState.techSolar.triggerProjectsZoom();
-        else if (window.AppState?.projectSolar) window.AppState.projectSolar.triggerProjectsZoom();
+        if (window.AppState?.techSolar) window.AppState.techSolar.triggerSpaceZoomTop();
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
 
-    const contactBtn = document.getElementById('cred-to-contact-btn');
-    if (contactBtn) {
-      contactBtn.addEventListener('click', (e) => {
+    const toTechBtn = document.getElementById('cred-to-tech-btn');
+    if (toTechBtn) {
+      toTechBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (window.AppState?.techSolar) {
-          window.AppState.techSolar.triggerContactZoom();
-        } else {
-          const cs = document.getElementById('contact');
-          if (cs) cs.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (window.AppState?.techSolar) window.AppState.techSolar.triggerTechZoom();
       });
     }
 
