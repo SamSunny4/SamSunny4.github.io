@@ -649,6 +649,7 @@ export class CredentialsMobiusEngine {
         <!-- Section Header -->
         <div class="cylinder-header">
           <h2 class="cylinder-title font-display">MY CERTIFICATES</h2>
+          <span class="cylinder-sub font-mono">// 11 VERIFIED CREDENTIALS · TAP CARD TO INSPECT</span>
         </div>
 
         <!-- React Bits CircularCarousel Viewport Mount -->
@@ -663,11 +664,7 @@ export class CredentialsMobiusEngine {
           <button class="cred-step-btn cred-step-next" id="cred-step-next" aria-label="Next Certificate" title="Next Certificate">❯</button>
         </div>
 
-        <!-- Navigation HUD -->
-        <div class="stage-nav-hud">
-          <button id="cred-return-home-btn" class="stage-nav-btn font-mono" title="Return to home landing">⤾ RETURN TO HOME</button>
-          <button id="cred-to-tech-btn" class="stage-nav-btn font-mono text-lime" title="Proceed to tech stack matrix">JOURNEY TO TECH MATRIX ↯</button>
-        </div>
+
       </div>
 
       <!-- High-Resolution Lightbox Modal -->
